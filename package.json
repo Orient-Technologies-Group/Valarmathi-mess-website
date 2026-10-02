@@ -1,0 +1,37 @@
+{
+  "name": "valarmathi-mess-website",
+  "version": "1.0.0",
+  "description": "Authentic regional restaurant website for Valarmathi Mess, Coimbatore",
+  "type": "module",
+  "scripts": {
+    "dev:server": "tsx watch server/index.ts",
+    "dev:client": "npm --prefix client run dev",
+    "dev": "concurrently -n \"server,client\" -c \"magenta,cyan\" \"npm run dev:server\" \"npm run dev:client\"",
+    "build:client": "npm --prefix client run build",
+    "build:server": "esbuild server/index.ts --bundle --platform=node --format=esm --outfile=dist/server.js --packages=external",
+    "build": "npm run build:client && npm run build:server",
+    "start": "node server.js",
+    "seed": "tsx server/db.ts"
+  },
+  "keywords": [
+    "valarmathi-mess",
+    "coimbatore",
+    "kongu-cuisine",
+    "restaurant-website"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^24.13.3",
+    "concurrently": "^9.1.2",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}
