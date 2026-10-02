@@ -1,0 +1,10 @@
+services:
+  - type: static
+    name: valarmathi-mess
+    env: static
+    buildCommand: npm --prefix client install && npm --prefix client run build
+    staticPublishPath: client/dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

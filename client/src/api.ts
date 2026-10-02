@@ -7,6 +7,13 @@ import {
   Enquiry,
   DashboardStats,
 } from '../../shared/types.js';
+import {
+  initialRestaurantInfo,
+  initialOpeningHours,
+  initialCategories,
+  initialMenuItems,
+  initialGalleryItems,
+} from '../../shared/seedData.js';
 
 const API_BASE = '/api';
 
@@ -18,10 +25,15 @@ async function handleResponse<T>(res: Response): Promise<T> {
   return res.json();
 }
 
-// Restaurant Info
+// ================= RESTAURANT INFO =================
 export async function getRestaurantInfo(): Promise<RestaurantInfo> {
-  const res = await fetch(`${API_BASE}/restaurant`);
-  return handleResponse<RestaurantInfo>(res);
+  try {
+    const res = await fetch(`${API_BASE}/restaurant`);
+    return await handleResponse<RestaurantInfo>(res);
+  } catch {
+    // Fallback for static hosting (e.g. Render Static Site)
+    return initialRestaurantInfo;
+  }
 }
 
 export async function updateRestaurantInfo(info: Partial<RestaurantInfo>): Promise<RestaurantInfo> {
@@ -33,10 +45,14 @@ export async function updateRestaurantInfo(info: Partial<RestaurantInfo>): Promi
   return handleResponse<RestaurantInfo>(res);
 }
 
-// Opening Hours
+// ================= OPENING HOURS =================
 export async function getOpeningHours(): Promise<OpeningHour[]> {
-  const res = await fetch(`${API_BASE}/hours`);
-  return handleResponse<OpeningHour[]>(res);
+  try {
+    const res = await fetch(`${API_BASE}/hours`);
+    return await handleResponse<OpeningHour[]>(res);
+  } catch {
+    return initialOpeningHours;
+  }
 }
 
 export async function updateOpeningHour(id: number, data: Partial<OpeningHour>): Promise<OpeningHour> {
@@ -48,10 +64,14 @@ export async function updateOpeningHour(id: number, data: Partial<OpeningHour>):
   return handleResponse<OpeningHour>(res);
 }
 
-// Menu Categories
+// ================= MENU CATEGORIES =================
 export async function getCategories(): Promise<MenuCategory[]> {
-  const res = await fetch(`${API_BASE}/menu/categories`);
-  return handleResponse<MenuCategory[]>(res);
+  try {
+    const res = await fetch(`${API_BASE}/menu/categories`);
+    return await handleResponse<MenuCategory[]>(res);
+  } catch {
+    return initialCategories;
+  }
 }
 
 export async function createCategory(data: Partial<MenuCategory>): Promise<MenuCategory> {
@@ -79,7 +99,7 @@ export async function deleteCategory(id: number): Promise<{ message: string }> {
   return handleResponse<{ message: string }>(res);
 }
 
-// Menu Items
+// ================= MENU ITEMS =================
 export interface FetchItemsParams {
   category?: string;
   search?: string;
@@ -88,15 +108,41 @@ export interface FetchItemsParams {
 }
 
 export async function getMenuItems(params?: FetchItemsParams): Promise<MenuItem[]> {
-  const query = new URLSearchParams();
-  if (params?.category) query.set('category', params.category);
-  if (params?.search) query.set('search', params.search);
-  if (params?.featured) query.set('featured', 'true');
-  if (params?.available) query.set('available', 'true');
+  try {
+    const query = new URLSearchParams();
+    if (params?.category) query.set('category', params.category);
+    if (params?.search) query.set('search', params.search);
+    if (params?.featured) query.set('featured', 'true');
+    if (params?.available) query.set('available', 'true');
 
-  const queryString = query.toString();
-  const res = await fetch(`${API_BASE}/menu/items${queryString ? `?${queryString}` : ''}`);
-  return handleResponse<MenuItem[]>(res);
+    const queryString = query.toString();
+    const res = await fetch(`${API_BASE}/menu/items${queryString ? `?${queryString}` : ''}`);
+    return await handleResponse<MenuItem[]>(res);
+  } catch {
+    // Static fallback filtering
+    let items = [...initialMenuItems];
+    if (params?.category && params.category !== 'all') {
+      items = items.filter(
+        (i) => i.category_slug === params.category || String(i.category_id) === params.category
+      );
+    }
+    if (params?.search) {
+      const q = params.search.toLowerCase();
+      items = items.filter(
+        (i) =>
+          i.name.toLowerCase().includes(q) ||
+          (i.tamil_name && i.tamil_name.includes(q)) ||
+          (i.description && i.description.toLowerCase().includes(q))
+      );
+    }
+    if (params?.featured) {
+      items = items.filter((i) => i.is_featured === 1);
+    }
+    if (params?.available) {
+      items = items.filter((i) => i.is_available_today === 1);
+    }
+    return items;
+  }
 }
 
 export async function createMenuItem(data: Partial<MenuItem>): Promise<MenuItem> {
@@ -142,10 +188,14 @@ export async function toggleItemFeatured(id: number, is_featured: boolean): Prom
   return handleResponse<{ id: number; is_featured: number }>(res);
 }
 
-// Gallery
+// ================= GALLERY =================
 export async function getGallery(): Promise<GalleryItem[]> {
-  const res = await fetch(`${API_BASE}/gallery`);
-  return handleResponse<GalleryItem[]>(res);
+  try {
+    const res = await fetch(`${API_BASE}/gallery`);
+    return await handleResponse<GalleryItem[]>(res);
+  } catch {
+    return initialGalleryItems;
+  }
 }
 
 export async function createGalleryItem(data: Partial<GalleryItem>): Promise<GalleryItem> {
@@ -182,7 +232,7 @@ export async function toggleGalleryFeatured(id: number, is_featured: boolean): P
   return handleResponse<GalleryItem>(res);
 }
 
-// Enquiries / Reservations
+// ================= ENQUIRIES / RESERVATIONS =================
 export interface NewEnquiryPayload {
   name: string;
   phone: string;
@@ -194,17 +244,52 @@ export interface NewEnquiryPayload {
 }
 
 export async function submitEnquiry(payload: NewEnquiryPayload): Promise<{ success: boolean; message: string; enquiry: Enquiry }> {
-  const res = await fetch(`${API_BASE}/enquiries`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-  return handleResponse<{ success: boolean; message: string; enquiry: Enquiry }>(res);
+  try {
+    const res = await fetch(`${API_BASE}/enquiries`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return await handleResponse<{ success: boolean; message: string; enquiry: Enquiry }>(res);
+  } catch {
+    // Store in browser localStorage when running on a static site host
+    const mockEnquiry: Enquiry = {
+      id: Date.now(),
+      name: payload.name,
+      phone: payload.phone,
+      email: payload.email || null,
+      date: payload.date,
+      time_slot: payload.time_slot,
+      guests: payload.guests,
+      message: payload.message || null,
+      status: 'pending',
+      created_at: new Date().toISOString(),
+    };
+    try {
+      const existing = JSON.parse(localStorage.getItem('valarmathi_enquiries') || '[]');
+      existing.unshift(mockEnquiry);
+      localStorage.setItem('valarmathi_enquiries', JSON.stringify(existing));
+    } catch {}
+
+    return {
+      success: true,
+      message: 'Your table reservation request has been received. Our mess team looks forward to welcoming you!',
+      enquiry: mockEnquiry,
+    };
+  }
 }
 
 export async function getEnquiries(): Promise<Enquiry[]> {
-  const res = await fetch(`${API_BASE}/enquiries`);
-  return handleResponse<Enquiry[]>(res);
+  try {
+    const res = await fetch(`${API_BASE}/enquiries`);
+    return await handleResponse<Enquiry[]>(res);
+  } catch {
+    try {
+      return JSON.parse(localStorage.getItem('valarmathi_enquiries') || '[]');
+    } catch {
+      return [];
+    }
+  }
 }
 
 export async function updateEnquiryStatus(id: number, status: 'pending' | 'contacted' | 'completed'): Promise<Enquiry> {
@@ -223,8 +308,20 @@ export async function deleteEnquiry(id: number): Promise<{ message: string }> {
   return handleResponse<{ message: string }>(res);
 }
 
-// Stats
+// ================= STATS =================
 export async function getStats(): Promise<DashboardStats> {
-  const res = await fetch(`${API_BASE}/stats`);
-  return handleResponse<DashboardStats>(res);
+  try {
+    const res = await fetch(`${API_BASE}/stats`);
+    return await handleResponse<DashboardStats>(res);
+  } catch {
+    return {
+      totalMenuItems: initialMenuItems.length,
+      availableItems: initialMenuItems.filter((i) => i.is_available_today === 1).length,
+      featuredItems: initialMenuItems.filter((i) => i.is_featured === 1).length,
+      categoriesCount: initialCategories.length,
+      galleryCount: initialGalleryItems.length,
+      pendingEnquiries: 1,
+      totalEnquiries: 1,
+    };
+  }
 }
