@@ -1,37 +1,33 @@
 {
-  "name": "valarmathi-mess-website",
-  "version": "1.0.0",
-  "description": "Authentic regional restaurant website for Valarmathi Mess, Coimbatore",
+  "name": "tapriwala",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev:server": "tsx watch server/index.ts",
-    "dev:client": "npm --prefix client run dev",
-    "dev": "concurrently -n \"server,client\" -c \"magenta,cyan\" \"npm run dev:server\" \"npm run dev:client\"",
-    "build:client": "npm --prefix client run build",
-    "build:server": "esbuild server/index.ts --bundle --platform=node --format=esm --outfile=dist/server.js --packages=external",
-    "build": "npm run build:client && npm run build:server",
-    "start": "node server.js",
-    "seed": "tsx server/db.ts"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview"
   },
-  "keywords": [
-    "valarmathi-mess",
-    "coimbatore",
-    "kongu-cuisine",
-    "restaurant-website"
-  ],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.21.2"
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/canvas-confetti": "^1.9.0",
+    "canvas-confetti": "^1.9.4",
+    "clsx": "^2.1.1",
+    "framer-motion": "^14.0.0",
+    "lucide-react": "^1.51.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwind-merge": "^3.7.0",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
     "@types/node": "^24.13.3",
-    "concurrently": "^9.1.2",
-    "esbuild": "^0.28.2",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
   }
 }
