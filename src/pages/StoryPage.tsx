@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { CheckCircle, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { BRAND_PROMISES } from '../data/tapriwalaData';
+import { ScrollReveal, StaggerContainer, StaggerItem } from '../components/ScrollReveal';
 
 export const StoryPage: React.FC = () => {
   useEffect(() => {
@@ -13,7 +15,7 @@ export const StoryPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Header */}
-        <div className="py-12 border-b border-[#E4D6C2] mb-16 text-center max-w-3xl mx-auto">
+        <ScrollReveal animation="fade-down" delay={0.1} className="py-12 border-b border-[#E4D6C2] mb-16 text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center space-x-2 text-[#B95032] mb-3">
             <span className="w-6 h-[1px] bg-[#B95032]" />
             <span className="text-xs uppercase tracking-[0.2em] font-semibold">
@@ -30,13 +32,13 @@ export const StoryPage: React.FC = () => {
           </h1>
 
           <p className="text-base sm:text-lg text-[#8C7E74] leading-relaxed">
-            How a humble tea stall idea in Mumbai blossomed into a vibrant, beloved cafe chain in Coimbatore, Tamil Nadu.
+            How a humble tea stall idea blossomed into a vibrant, beloved cafe chain in Coimbatore, Tamil Nadu.
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Narrative Section 1: The Founding Vision */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
-          <div className="lg:col-span-7 space-y-6 text-[#302019]/85 text-base sm:text-lg leading-relaxed font-normal">
+          <ScrollReveal animation="fade-right" delay={0.2} className="lg:col-span-7 space-y-6 text-[#302019]/85 text-base sm:text-lg leading-relaxed font-normal">
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#302019]">
               Reimagining the Roadside Chai Break
             </h2>
@@ -49,10 +51,14 @@ export const StoryPage: React.FC = () => {
             <p>
               Opening our flagship cafe on Diwan Bahadur (DB) Road in R.S. Puram, Coimbatore, we built an unhurried haven. We brought together authentic clay kulhads, authentic Mumbai street chaat recipes, thick Surat cold cocoa, and board games on every table.
             </p>
-          </div>
+          </ScrollReveal>
 
-          <div className="lg:col-span-5">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#FAF6EF]">
+          <ScrollReveal animation="fade-left" delay={0.3} className="lg:col-span-5">
+            <motion.div 
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.5 }}
+              className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#FAF6EF]"
+            >
               <img
                 src="/images/kulhad-chai.jpg"
                 alt="Boiling tea in clay kulhads with whole spices"
@@ -67,12 +73,12 @@ export const StoryPage: React.FC = () => {
                   Infusing natural mineral earthiness into every Assam tea leaf
                 </p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </ScrollReveal>
         </div>
 
-        {/* Four Kitchen Pillars Detailed */}
-        <div className="my-20 p-8 sm:p-12 rounded-3xl bg-[#FAF6EF] border border-[#E4D6C2] shadow-sm">
+        {/* Four Kitchen Pillars Detailed with Stagger */}
+        <ScrollReveal animation="fade-up" delay={0.2} className="my-20 p-8 sm:p-12 rounded-3xl bg-[#FAF6EF] border border-[#E4D6C2] shadow-sm">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs uppercase tracking-[0.2em] font-bold text-[#B95032] block mb-2">
               Our Non-Negotiables
@@ -82,29 +88,38 @@ export const StoryPage: React.FC = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <StaggerContainer
+            staggerDelay={0.14}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
             {BRAND_PROMISES.map((promise) => (
-              <div key={promise.id} className="p-6 rounded-2xl bg-[#F7F1E7] border border-[#E4D6C2] flex items-start space-x-4">
-                <div className="p-3 rounded-xl bg-[#FAF6EF] text-[#B95032] border border-[#E4D6C2] shrink-0">
-                  <CheckCircle className="w-5 h-5 text-[#728064]" />
+              <StaggerItem key={promise.id} animation="fade-up">
+                <div className="p-6 rounded-2xl bg-[#F7F1E7] border border-[#E4D6C2] flex items-start space-x-4 h-full shadow-2xs hover:shadow-md transition-shadow">
+                  <div className="p-3 rounded-xl bg-[#FAF6EF] text-[#B95032] border border-[#E4D6C2] shrink-0">
+                    <CheckCircle className="w-5 h-5 text-[#728064]" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl font-bold text-[#302019] mb-2">
+                      {promise.title}
+                    </h3>
+                    <p className="text-sm text-[#8C7E74] leading-relaxed">
+                      {promise.description}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-serif text-xl font-bold text-[#302019] mb-2">
-                    {promise.title}
-                  </h3>
-                  <p className="text-sm text-[#8C7E74] leading-relaxed">
-                    {promise.description}
-                  </p>
-                </div>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
-        </div>
+          </StaggerContainer>
+        </ScrollReveal>
 
         {/* Narrative Section 2: Why Kulhad Matters */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-20">
-          <div className="lg:col-span-5 order-2 lg:order-1">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#FAF6EF]">
+          <ScrollReveal animation="fade-right" delay={0.2} className="lg:col-span-5 order-2 lg:order-1">
+            <motion.div 
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.5 }}
+              className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#FAF6EF]"
+            >
               <img
                 src="/images/cafe-ambience.jpg"
                 alt="Coimbatore community enjoying tea and conversations at Tapriwala"
@@ -119,10 +134,10 @@ export const StoryPage: React.FC = () => {
                   Where strangers become table companions over a game of Jenga
                 </p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </ScrollReveal>
 
-          <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 text-[#302019]/85 text-base sm:text-lg leading-relaxed font-normal">
+          <ScrollReveal animation="fade-left" delay={0.3} className="lg:col-span-7 order-1 lg:order-2 space-y-6 text-[#302019]/85 text-base sm:text-lg leading-relaxed font-normal">
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#302019]">
               Rooted in Coimbatore's Cafe Culture
             </h2>
@@ -132,11 +147,11 @@ export const StoryPage: React.FC = () => {
             <p>
               We treat our menu as a love letter to Bombay street food: from the tangy garlic thecha in our Vada Pav to slow-simmered buttery Pav Bhaji. Each dish is prepared fresh on order—crisp bread straight from the griddle, chutney ground each morning, and tea brewed to your preferred sweetness.
             </p>
-          </div>
+          </ScrollReveal>
         </div>
 
         {/* Narrative Section 3: Founder's Story & The Pushcart Heritage */}
-        <div className="my-20 p-8 sm:p-12 rounded-3xl bg-[#FAF6EF] border border-[#E4D6C2] relative overflow-hidden">
+        <ScrollReveal animation="zoom-in" delay={0.25} className="my-20 p-8 sm:p-12 rounded-3xl bg-[#FAF6EF] border border-[#E4D6C2] relative overflow-hidden shadow-lg">
           <div className="max-w-3xl">
             <span className="text-xs uppercase tracking-[0.2em] font-bold text-[#B95032] block mb-2">
               The Founder’s Journey
@@ -159,14 +174,14 @@ export const StoryPage: React.FC = () => {
             <div className="pt-8">
               <Link
                 href="/menu"
-                className="inline-flex items-center space-x-2 px-7 py-3.5 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-md shadow-md transition-all cursor-pointer"
+                className="inline-flex items-center space-x-2 px-7 py-3.5 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-md shadow-md hover:shadow-xl transition-all cursor-pointer"
               >
                 <span>Explore The Menu</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
       </div>
     </div>

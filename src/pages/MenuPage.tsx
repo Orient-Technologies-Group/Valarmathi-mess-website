@@ -1,7 +1,9 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Search, X, Sparkles, Coffee, Info, Eye, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { MENU_ITEMS, type MenuItem } from '../data/tapriwalaData';
 import { DishDetailModal } from '../components/DishDetailModal';
+import { ScrollReveal, StaggerContainer, StaggerItem } from '../components/ScrollReveal';
 
 type CategoryFilter = 'All' | 'Chai & Hot Brews' | 'Cold Sips' | 'Street Food & Chaat' | 'Sandwiches & Wraps' | 'Maggi';
 
@@ -48,7 +50,7 @@ export const MenuPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Dedicated Page Hero Header */}
-        <div className="py-12 border-b border-[#E4D6C2] mb-10 text-center max-w-3xl mx-auto">
+        <ScrollReveal animation="fade-down" delay={0.1} className="py-12 border-b border-[#E4D6C2] mb-10 text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center space-x-2 text-[#B95032] mb-3">
             <span className="w-6 h-[1px] bg-[#B95032]" />
             <span className="text-xs uppercase tracking-[0.2em] font-semibold">
@@ -76,7 +78,7 @@ export const MenuPage: React.FC = () => {
               Click Any Dish For Taste Profile
             </span>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Filter Controls Bar */}
         <div className="bg-[#FAF6EF] p-4 sm:p-6 rounded-2xl border border-[#E4D6C2] shadow-sm mb-10">
@@ -173,72 +175,78 @@ export const MenuPage: React.FC = () => {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <StaggerContainer
+            staggerDelay={0.06}
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
+          >
             {filteredItems.map((dish) => (
-              <div
-                key={dish.id}
-                onClick={() => setSelectedDish(dish)}
-                tabIndex={0}
-                role="button"
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setSelectedDish(dish);
-                  }
-                }}
-                className="group cursor-pointer bg-[#FAF6EF] hover:bg-[#FAF6EF]/90 p-5 rounded-2xl border border-[#E4D6C2] hover:border-[#B95032] transition-all duration-200 hover:shadow-lg flex items-center justify-between gap-4"
-                aria-label={`View ${dish.name} details`}
-              >
-                <div className="flex items-center space-x-4">
-                  {/* Photo Thumbnail */}
-                  <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 bg-[#302019]/5 border border-[#E4D6C2] relative">
-                    <img
-                      src={dish.image || '/images/kulhad-chai.jpg'}
-                      alt={dish.name}
-                      className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
-                      loading="lazy"
-                    />
+              <StaggerItem key={dish.id} animation="fade-up">
+                <motion.div
+                  whileHover={{ y: -4, borderColor: '#B95032' }}
+                  transition={{ duration: 0.25 }}
+                  onClick={() => setSelectedDish(dish)}
+                  tabIndex={0}
+                  role="button"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedDish(dish);
+                    }
+                  }}
+                  className="group cursor-pointer bg-[#FAF6EF] hover:bg-[#FAF6EF]/90 p-5 rounded-2xl border border-[#E4D6C2] transition-all duration-200 hover:shadow-lg flex items-center justify-between gap-4 h-full"
+                  aria-label={`View ${dish.name} details`}
+                >
+                  <div className="flex items-center space-x-4">
+                    {/* Photo Thumbnail */}
+                    <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 bg-[#302019]/5 border border-[#E4D6C2] relative">
+                      <img
+                        src={dish.image || '/images/kulhad-chai.jpg'}
+                        alt={dish.name}
+                        className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                        <h3 className="font-serif text-lg font-bold text-[#302019] group-hover:text-[#B95032] transition-colors leading-tight">
+                          {dish.name}
+                        </h3>
+                        {dish.isSignature && (
+                          <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#B95032]/10 text-[#B95032] border border-[#B95032]/20">
+                            Signature
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-[#8C7E74] leading-relaxed line-clamp-2 max-w-sm">
+                        {dish.description}
+                      </p>
+                      <div className="flex items-center space-x-2 mt-2">
+                        <span className="text-[11px] font-semibold text-[#728064]">
+                          ● Pure Veg
+                        </span>
+                        {dish.isJainAvailable && (
+                          <span className="text-[11px] font-semibold text-[#D49A3D]">
+                            ● Jain Available
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
 
-                  <div>
-                    <div className="flex flex-wrap items-center gap-1.5 mb-1">
-                      <h3 className="font-serif text-lg font-bold text-[#302019] group-hover:text-[#B95032] transition-colors leading-tight">
-                        {dish.name}
-                      </h3>
-                      {dish.isSignature && (
-                        <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#B95032]/10 text-[#B95032] border border-[#B95032]/20">
-                          Signature
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-xs text-[#8C7E74] leading-relaxed line-clamp-2 max-w-sm">
-                      {dish.description}
-                    </p>
-                    <div className="flex items-center space-x-2 mt-2">
-                      <span className="text-[11px] font-semibold text-[#728064]">
-                        ● Pure Veg
-                      </span>
-                      {dish.isJainAvailable && (
-                        <span className="text-[11px] font-semibold text-[#D49A3D]">
-                          ● Jain Available
-                        </span>
-                      )}
-                    </div>
+                  <div className="text-right shrink-0 flex flex-col items-end">
+                    <span className="font-serif text-xl sm:text-2xl font-bold text-[#B95032]">
+                      {dish.price}
+                    </span>
+                    <span className="text-[10px] text-[#8C7E74] uppercase font-bold mt-1 group-hover:text-[#B95032] transition-colors flex items-center space-x-0.5">
+                      <span>Inspect</span>
+                      <Eye className="w-3 h-3 ml-0.5" />
+                    </span>
                   </div>
-                </div>
-
-                <div className="text-right shrink-0 flex flex-col items-end">
-                  <span className="font-serif text-xl sm:text-2xl font-bold text-[#B95032]">
-                    {dish.price}
-                  </span>
-                  <span className="text-[10px] text-[#8C7E74] uppercase font-bold mt-1 group-hover:text-[#B95032] transition-colors flex items-center space-x-0.5">
-                    <span>Inspect</span>
-                    <Eye className="w-3 h-3 ml-0.5" />
-                  </span>
-                </div>
-              </div>
+                </motion.div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         )}
 
         {/* Bottom Delivery & Order Information */}

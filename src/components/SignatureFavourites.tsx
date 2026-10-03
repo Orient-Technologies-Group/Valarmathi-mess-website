@@ -3,6 +3,7 @@ import { ArrowRight, Eye, ChevronRight } from 'lucide-react';
 import { SIGNATURE_DISHES } from '../data/tapriwalaData';
 import type { MenuItem } from '../data/tapriwalaData';
 import { DishDetailModal } from './DishDetailModal';
+import { ScrollReveal, StaggerContainer, StaggerItem } from './ScrollReveal';
 
 interface SignatureFavouritesProps {
   onViewFullMenu: () => void;
@@ -18,32 +19,42 @@ export const SignatureFavourites: React.FC<SignatureFavouritesProps> = ({ onView
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 border-b border-[#E4D6C2] pb-8">
           <div>
-            <div className="flex items-center space-x-2 text-[#B95032] mb-3">
-              <span className="w-8 h-[1px] bg-[#B95032]" />
-              <span className="text-xs uppercase tracking-[0.2em] font-semibold">
-                Signature Introductions
-              </span>
-            </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[#302019] tracking-tight">
-              First visit?{' '}
-              <span className="italic font-normal text-[#B95032]">Start here.</span>
-            </h2>
+            <ScrollReveal animation="fade-right" delay={0.1}>
+              <div className="flex items-center space-x-2 text-[#B95032] mb-3">
+                <span className="w-8 h-[1px] bg-[#B95032]" />
+                <span className="text-xs uppercase tracking-[0.2em] font-semibold">
+                  Signature Introductions
+                </span>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal animation="fade-up" delay={0.2}>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[#302019] tracking-tight">
+                First visit?{' '}
+                <span className="italic font-normal text-[#B95032]">Start here.</span>
+              </h2>
+            </ScrollReveal>
           </div>
 
           <div className="mt-4 md:mt-0 flex items-center space-x-4">
-            <p className="text-sm text-[#8C7E74] max-w-xs font-normal">
-              Four timeless house favourites that define the Tapriwala taste. Click any item to explore.
-            </p>
+            <ScrollReveal animation="fade-up" delay={0.3}>
+              <p className="text-sm text-[#8C7E74] max-w-xs font-normal">
+                Four timeless house favourites that define the Tapriwala taste. Click any item to explore.
+              </p>
+            </ScrollReveal>
           </div>
         </div>
 
-        {/* Varied Editorial Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+        {/* Varied Editorial Grid with Stagger Entrance */}
+        <StaggerContainer
+          staggerDelay={0.15}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch"
+        >
           
           {/* Card 1: Tapriwala Special Chai (Large, Span 6) */}
+          <StaggerItem className="lg:col-span-6 flex flex-col" animation="fade-up">
           <div 
             onClick={() => setSelectedDish(SIGNATURE_DISHES[0])}
-            className="lg:col-span-6 group cursor-pointer bg-[#F7F1E7] rounded-2xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            className="w-full h-full group cursor-pointer bg-[#F7F1E7] rounded-2xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             tabIndex={0}
             role="button"
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(SIGNATURE_DISHES[0]); } }}
@@ -93,11 +104,13 @@ export const SignatureFavourites: React.FC<SignatureFavouritesProps> = ({ onView
               </div>
             </div>
           </div>
+          </StaggerItem>
 
           {/* Card 2: Surat Special Cold Cocoa (Medium, Span 6) */}
+          <StaggerItem className="lg:col-span-6 flex flex-col" animation="fade-up">
           <div 
             onClick={() => setSelectedDish(SIGNATURE_DISHES[1])}
-            className="lg:col-span-6 group cursor-pointer bg-[#F7F1E7] rounded-2xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            className="w-full h-full group cursor-pointer bg-[#F7F1E7] rounded-2xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             tabIndex={0}
             role="button"
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(SIGNATURE_DISHES[1]); } }}
@@ -147,11 +160,13 @@ export const SignatureFavourites: React.FC<SignatureFavouritesProps> = ({ onView
               </div>
             </div>
           </div>
+          </StaggerItem>
 
           {/* Card 3: Mumbai Vada Pav (Span 6) */}
+          <StaggerItem className="lg:col-span-6 flex flex-col" animation="fade-up">
           <div 
             onClick={() => setSelectedDish(SIGNATURE_DISHES[2])}
-            className="lg:col-span-6 group cursor-pointer bg-[#F7F1E7] rounded-2xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            className="w-full h-full group cursor-pointer bg-[#F7F1E7] rounded-2xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             tabIndex={0}
             role="button"
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(SIGNATURE_DISHES[2]); } }}
@@ -203,11 +218,13 @@ export const SignatureFavourites: React.FC<SignatureFavouritesProps> = ({ onView
               </div>
             </div>
           </div>
+          </StaggerItem>
 
           {/* Card 4: Paneer Cheese Burst Sandwich (Span 6) */}
+          <StaggerItem className="lg:col-span-6 flex flex-col" animation="fade-up">
           <div 
             onClick={() => setSelectedDish(SIGNATURE_DISHES[3])}
-            className="lg:col-span-6 group cursor-pointer bg-[#F7F1E7] rounded-2xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            className="w-full h-full group cursor-pointer bg-[#F7F1E7] rounded-2xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             tabIndex={0}
             role="button"
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(SIGNATURE_DISHES[3]); } }}
@@ -257,8 +274,9 @@ export const SignatureFavourites: React.FC<SignatureFavouritesProps> = ({ onView
               </div>
             </div>
           </div>
+          </StaggerItem>
 
-        </div>
+        </StaggerContainer>
 
         {/* Bottom CTA to Full Menu */}
         <div className="mt-12 text-center">
