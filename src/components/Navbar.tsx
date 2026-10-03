@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'wouter';
 import { Menu, X, Coffee, Sparkles } from 'lucide-react';
 
-interface NavbarProps {
-  onNavigateToMenu?: () => void;
-}
-
-export const Navbar: React.FC<NavbarProps> = ({ onNavigateToMenu }) => {
+export const Navbar: React.FC = () => {
+  const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 30);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -30,97 +28,101 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToMenu }) => {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { label: 'Our Story', href: '#story' },
-    { label: 'Signature Bites', href: '#signatures' },
-    { label: 'Menu', href: '#menu' },
-    { label: 'Chai Pairing', href: '#pairing' },
-    { label: 'The Experience', href: '#experience' },
-    { label: 'Outlets', href: '#outlets' },
+    { label: 'Home', href: '/' },
+    { label: 'Menu', href: '/menu' },
+    { label: 'Our Story', href: '/story' },
+    { label: 'The Experience', href: '/experience' },
+    { label: 'Outlets', href: '/outlets' },
   ];
-
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({
-        top: elementPosition - offset,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#F7F1E7]/95 backdrop-blur-md shadow-sm border-b border-[#E4D6C2]/80 py-3.5'
-            : 'bg-transparent py-5'
+            ? 'bg-[#F7F1E7]/95 backdrop-blur-md shadow-sm border-b border-[#E4D6C2]/80 py-3'
+            : 'bg-[#F7F1E7]/80 backdrop-blur-xs py-4.5 border-b border-[#E4D6C2]/40'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Wordmark Logo */}
-            <a
-              href="#"
-              className="group flex flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B95032] rounded-sm"
+            
+            {/* Wordmark Logo + Stylized Tapri Kettle Icon */}
+            <Link
+              href="/"
+              className="group flex items-center space-x-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B95032] rounded-md cursor-pointer"
               aria-label="Tapriwala Home"
             >
-              <span className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#302019] group-hover:text-[#B95032] transition-colors leading-none">
-                tapriwala
-              </span>
-              <span className="text-[9px] sm:text-[10px] tracking-[0.22em] text-[#8C7E74] uppercase font-medium mt-1">
-                The Contemporary Tea Cafe
-              </span>
-            </a>
+              {/* Brand Emblem Logo Badge */}
+              <div className="w-10 h-10 rounded-xl bg-[#302019] text-[#FAF6EF] flex items-center justify-center p-2 shadow-sm group-hover:bg-[#B95032] transition-colors shrink-0">
+                <svg viewBox="0 0 32 32" className="w-full h-full fill-current">
+                  {/* Traditional Kettle Silhouette */}
+                  <path d="M12 8 C12 6.5 13.5 5 16 5 C18.5 5 20 6.5 20 8 L24 10 L24 23 C24 25 22 27 16 27 C10 27 8 25 8 23 L8 10 Z" fill="#F7F1E7" />
+                  <path d="M6 13 L3 11 C2 10 3 8 5 9 L8 11 Z" fill="#D49A3D" />
+                  <path d="M24 14 C27 14 28 17 25 20" stroke="#F7F1E7" strokeWidth="2" fill="none" strokeLinecap="round" />
+                  <circle cx="16" cy="18" r="2" fill="#B95032" />
+                </svg>
+              </div>
+
+              <div className="flex flex-col">
+                <span className="font-serif text-2xl sm:text-2xl font-bold tracking-tight text-[#302019] group-hover:text-[#B95032] transition-colors leading-none">
+                  tapriwala
+                </span>
+                <span className="text-[9px] tracking-[0.22em] text-[#8C7E74] uppercase font-semibold mt-0.5">
+                  The Contemporary Tea Cafe
+                </span>
+              </div>
+            </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-7" aria-label="Main Navigation">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href)}
-                  className="text-sm font-medium text-[#302019]/80 hover:text-[#B95032] relative py-1 transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B95032] rounded"
-                >
-                  {link.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#B95032] transition-all duration-200 group-hover:w-full" />
-                </a>
-              ))}
+            <nav className="hidden lg:flex items-center space-x-8" aria-label="Main Navigation">
+              {navLinks.map((link) => {
+                const isActive = location === link.href;
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className={`text-sm font-semibold tracking-wide relative py-1 transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B95032] rounded cursor-pointer ${
+                      isActive
+                        ? 'text-[#B95032]'
+                        : 'text-[#302019]/80 hover:text-[#B95032]'
+                    }`}
+                  >
+                    {link.label}
+                    <span
+                      className={`absolute bottom-0 left-0 h-0.5 bg-[#B95032] transition-all duration-200 ${
+                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                      }`}
+                    />
+                  </Link>
+                );
+              })}
             </nav>
 
             {/* Right Action */}
             <div className="hidden sm:flex items-center space-x-4">
               <span className="hidden xl:inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-[#728064]/10 text-[#728064] border border-[#728064]/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#728064] mr-1.5"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#728064] mr-1.5" />
                 100% Pure Veg
               </span>
 
-              <a
-                href="#menu"
-                onClick={(e) => {
-                  handleLinkClick(e, '#menu');
-                  if (onNavigateToMenu) onNavigateToMenu();
-                }}
-                className="inline-flex items-center space-x-2 px-5 py-2.5 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-md shadow-sm transition-all duration-200 hover:shadow active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#302019]"
+              <Link
+                href="/menu"
+                className="inline-flex items-center space-x-2 px-5 py-2.5 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-md shadow-sm transition-all duration-200 hover:shadow active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#302019] cursor-pointer"
               >
                 <Coffee className="w-4 h-4" />
-                <span>View Menu</span>
-              </a>
+                <span>Explore Menu</span>
+              </Link>
             </div>
 
             {/* Mobile Hamburger Button */}
             <div className="flex sm:hidden items-center space-x-2">
-              <a
-                href="#menu"
-                onClick={(e) => handleLinkClick(e, '#menu')}
-                className="px-3 py-1.5 bg-[#B95032] text-[#F7F1E7] text-xs font-medium rounded shadow-sm"
+              <Link
+                href="/menu"
+                className="px-3 py-1.5 bg-[#B95032] text-[#F7F1E7] text-xs font-semibold rounded shadow-sm"
               >
                 Menu
-              </a>
+              </Link>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -143,12 +145,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToMenu }) => {
             onClick={() => setMobileMenuOpen(false)}
           />
 
-          <div className="fixed inset-y-0 right-0 max-w-xs w-full bg-[#FAF6EF] shadow-2xl p-6 flex flex-col justify-between border-l border-[#E4D6C2]">
+          <div className="fixed inset-y-0 right-0 max-w-xs w-full bg-[#FAF6EF] shadow-2xl p-6 flex flex-col justify-between border-l border-[#E4D6C2] z-10">
             <div>
               <div className="flex items-center justify-between pb-6 border-b border-[#E4D6C2]">
                 <div className="flex flex-col">
                   <span className="font-serif text-2xl font-bold text-[#302019]">tapriwala</span>
-                  <span className="text-[9px] tracking-widest text-[#8C7E74] uppercase">The Contemporary Tea Cafe</span>
+                  <span className="text-[9px] tracking-widest text-[#8C7E74] uppercase font-semibold">
+                    The Contemporary Tea Cafe
+                  </span>
                 </div>
                 <button
                   type="button"
@@ -161,20 +165,25 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToMenu }) => {
               </div>
 
               <nav className="mt-8 flex flex-col space-y-4" aria-label="Mobile Navigation">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={(e) => handleLinkClick(e, link.href)}
-                    className="text-base font-medium text-[#302019] hover:text-[#B95032] py-2 border-b border-[#E4D6C2]/40 transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {navLinks.map((link) => {
+                  const isActive = location === link.href;
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`text-base font-semibold py-2.5 border-b border-[#E4D6C2]/40 transition-colors ${
+                        isActive ? 'text-[#B95032] pl-2 border-l-2 border-[#B95032]' : 'text-[#302019] hover:text-[#B95032]'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
               </nav>
 
               <div className="mt-6 pt-4 border-t border-[#E4D6C2]">
-                <span className="inline-flex items-center text-xs font-medium px-2.5 py-1 rounded bg-[#728064]/10 text-[#728064] border border-[#728064]/20">
+                <span className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded bg-[#728064]/10 text-[#728064] border border-[#728064]/20">
                   <Sparkles className="w-3.5 h-3.5 mr-1" />
                   100% Pure Vegetarian · Jain on Request
                 </span>
@@ -182,20 +191,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToMenu }) => {
             </div>
 
             <div className="pt-6 border-t border-[#E4D6C2] flex flex-col space-y-3">
-              <a
-                href="#menu"
-                onClick={(e) => handleLinkClick(e, '#menu')}
-                className="w-full text-center py-3 bg-[#B95032] text-[#F7F1E7] text-sm uppercase tracking-wider font-semibold rounded-md shadow-sm"
+              <Link
+                href="/menu"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full text-center py-3 bg-[#B95032] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-md shadow-sm"
               >
                 Explore Full Menu
-              </a>
-              <a
-                href="#outlets"
-                onClick={(e) => handleLinkClick(e, '#outlets')}
-                className="w-full text-center py-2.5 border border-[#8C7E74]/40 text-[#302019] text-sm font-medium rounded-md hover:bg-[#E4D6C2]/30"
+              </Link>
+              <Link
+                href="/outlets"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full text-center py-2.5 border border-[#8C7E74]/40 text-[#302019] text-xs font-semibold rounded-md hover:bg-[#E4D6C2]/30"
               >
                 Find Nearest Outlet
-              </a>
+              </Link>
             </div>
           </div>
         </div>
