@@ -132,12 +132,36 @@ export const StoryPage: React.FC = () => {
             <p>
               We treat our menu as a love letter to Bombay street food: from the tangy garlic thecha in our Vada Pav to slow-simmered buttery Pav Bhaji. Each dish is prepared fresh on order—crisp bread straight from the griddle, chutney ground each morning, and tea brewed to your preferred sweetness.
             </p>
-            <div className="pt-4">
+          </div>
+        </div>
+
+        {/* Narrative Section 3: Founder's Story & The Pushcart Heritage */}
+        <div className="my-20 p-8 sm:p-12 rounded-3xl bg-[#FAF6EF] border border-[#E4D6C2] relative overflow-hidden">
+          <div className="max-w-3xl">
+            <span className="text-xs uppercase tracking-[0.2em] font-bold text-[#B95032] block mb-2">
+              The Founder’s Journey
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#302019] mb-4">
+              From PSG Tech & Illinois to R.S. Puram
+            </h2>
+            <div className="space-y-4 text-sm sm:text-base text-[#302019]/80 leading-relaxed font-normal">
+              <p>
+                Tapriwala was founded by <strong>Abhinav Surana</strong>. Born in Mumbai and raised in Coimbatore, Abhinav graduated in Robotics & Automation Engineering from <strong>PSG Tech, Coimbatore</strong>, followed by a postgraduate degree in Industrial Engineering from the <strong>University of Illinois at Urbana-Champaign (UIUC)</strong>.
+              </p>
+              <p>
+                His love for the culinary craft started early—brewing tea for his grandfather as a child, and later cooking wholesome vegetarian meals for international friends while interning in Porto, Portugal. 
+              </p>
+              <p>
+                In Tamil, <em>tapriwala</em> translates to <em>thalluvandikaran</em> (pushcart vendor). To pay authentic homage to this heritage, Abhinav installed an actual handcrafted pushcart directly inside the flagship outlet on West Lokamanya Street (D.B. Road Corner), where cutting chai is brewed fresh before your eyes.
+              </p>
+            </div>
+
+            <div className="pt-8">
               <Link
                 href="/menu"
                 className="inline-flex items-center space-x-2 px-7 py-3.5 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-md shadow-md transition-all cursor-pointer"
               >
-                <span>Explore What We Cook</span>
+                <span>Explore The Menu</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
