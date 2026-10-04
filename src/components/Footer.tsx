@@ -63,13 +63,23 @@ export const Footer: React.FC = () => {
           
           {/* Brand Info (Col 4) */}
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-block mb-3 cursor-pointer">
-              <span className="font-serif text-3xl font-bold tracking-tight text-[#F7F1E7]">
-                tapriwala
-              </span>
-              <span className="text-[10px] tracking-[0.2em] text-[#D49A3D] uppercase block mt-1">
-                The Contemporary Tea Cafe
-              </span>
+            <Link href="/" className="inline-flex items-center space-x-3 mb-3 cursor-pointer group">
+              <div className="w-10 h-10 rounded-xl bg-[#FAF6EF]/10 border border-[#FAF6EF]/20 text-[#FAF6EF] flex items-center justify-center p-2 shadow-xs group-hover:bg-[#B95032] transition-colors shrink-0">
+                <svg viewBox="0 0 32 32" className="w-full h-full fill-current">
+                  <path d="M12 8 C12 6.5 13.5 5 16 5 C18.5 5 20 6.5 20 8 L24 10 L24 23 C24 25 22 27 16 27 C10 27 8 25 8 23 L8 10 Z" fill="#F7F1E7" />
+                  <path d="M6 13 L3 11 C2 10 3 8 5 9 L8 11 Z" fill="#D49A3D" />
+                  <path d="M24 14 C27 14 28 17 25 20" stroke="#F7F1E7" strokeWidth="2" fill="none" strokeLinecap="round" />
+                  <circle cx="16" cy="18" r="2" fill="#B95032" />
+                </svg>
+              </div>
+              <div>
+                <span className="font-serif text-2xl font-bold tracking-tight text-[#F7F1E7] block leading-none">
+                  tapriwala
+                </span>
+                <span className="text-[10px] tracking-[0.2em] text-[#D49A3D] uppercase block mt-1 font-semibold">
+                  The Contemporary Tea Cafe
+                </span>
+              </div>
             </Link>
             
             <p className="text-xs sm:text-sm text-[#E4D6C2]/70 leading-relaxed mb-6 max-w-sm">

@@ -62,16 +62,14 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ item, onClose,
 
           {/* Badges on image */}
           <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
-            <span className="px-3 py-1 rounded-full bg-[#728064] text-[#F7F1E7] text-xs font-semibold tracking-wide shadow-xs flex items-center space-x-1">
+            <span className="px-3 py-1 rounded-full bg-[#728064] text-[#FAF6EF] text-xs font-semibold tracking-wide shadow-xs flex items-center space-x-1">
               <Check className="w-3 h-3" />
               <span>100% Pure Vegetarian</span>
             </span>
-            {item.isJainAvailable && (
-              <span className="px-3 py-1 rounded-full bg-[#D49A3D] text-[#302019] text-xs font-semibold tracking-wide shadow-xs flex items-center space-x-1">
-                <Sparkles className="w-3 h-3" />
-                <span>Jain Available</span>
-              </span>
-            )}
+            <span className="px-3 py-1 rounded-full bg-[#302019]/85 text-[#FAF6EF] border border-white/10 text-xs font-semibold tracking-wide shadow-xs flex items-center space-x-1">
+              <Sparkles className="w-3 h-3 text-[#D49A3D]" />
+              <span>Jain Options Upon Request</span>
+            </span>
           </div>
         </div>
 

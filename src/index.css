@@ -13,15 +13,22 @@
     --amber: #D49A3D;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--cream);
     color: var(--espresso);
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, .font-serif {
     font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.015em;
   }
 
   .font-script {
@@ -29,19 +36,13 @@
   }
 }
 
-/* Subtle paper grain overlay */
+/* Subtle, lightweight parchment texture without expensive composite filters */
 .bg-paper-grain {
-  background-color: #F7F1E7;
-  background-image: radial-gradient(#302019 0.4px, transparent 0.4px), radial-gradient(#B95032 0.3px, #F7F1E7 0.3px);
-  background-size: 24px 24px;
-  background-position: 0 0, 12px 12px;
-  background-blend-mode: soft-light;
+  background-color: #FAF6EF;
 }
 
 .bg-dark-grain {
-  background-color: #302019;
-  background-image: radial-gradient(#E4D6C2 0.3px, transparent 0.3px);
-  background-size: 20px 20px;
+  background-color: #261710;
 }
 
 /* Steam particle keyframes */

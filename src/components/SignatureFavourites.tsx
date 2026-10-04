@@ -3,7 +3,7 @@ import { ArrowRight, Eye, ChevronRight } from 'lucide-react';
 import { SIGNATURE_DISHES } from '../data/tapriwalaData';
 import type { MenuItem } from '../data/tapriwalaData';
 import { DishDetailModal } from './DishDetailModal';
-import { ScrollReveal, StaggerContainer, StaggerItem } from './ScrollReveal';
+import { ScrollReveal } from './ScrollReveal';
 
 interface SignatureFavouritesProps {
   onViewFullMenu: () => void;
@@ -44,239 +44,120 @@ export const SignatureFavourites: React.FC<SignatureFavouritesProps> = ({ onView
           </div>
         </div>
 
-        {/* Varied Editorial Grid with Stagger Entrance */}
-        <StaggerContainer
-          staggerDelay={0.15}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch"
-        >
+        {/* Asymmetric Editorial Composition: Hero Feature Left + Compact Editorial Rows Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          {/* Card 1: Tapriwala Special Chai (Large, Span 6) */}
-          <StaggerItem className="lg:col-span-6 flex flex-col" animation="fade-up">
-          <div 
-            onClick={() => setSelectedDish(SIGNATURE_DISHES[0])}
-            className="w-full h-full group cursor-pointer bg-[#F7F1E7] rounded-2xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-            tabIndex={0}
-            role="button"
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(SIGNATURE_DISHES[0]); } }}
-            aria-label={`View details for ${SIGNATURE_DISHES[0].name}`}
-          >
-            <div className="relative aspect-16/10 overflow-hidden bg-[#302019]/5">
-              <img
-                src={SIGNATURE_DISHES[0].image}
-                alt={SIGNATURE_DISHES[0].name}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#302019]/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-              
-              <div className="absolute top-4 left-4 bg-[#B95032] text-[#F7F1E7] px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
-                House Icon
-              </div>
+          {/* Featured Large Hero Dish: Tapriwala Special Chai (Span 7) */}
+          <div className="lg:col-span-7 flex flex-col">
+            <ScrollReveal animation="fade-right" delay={0.15} className="h-full">
+              <div 
+                onClick={() => setSelectedDish(SIGNATURE_DISHES[0])}
+                className="h-full group cursor-pointer bg-[#F7F1E7] rounded-3xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                tabIndex={0}
+                role="button"
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(SIGNATURE_DISHES[0]); } }}
+                aria-label={`View details for ${SIGNATURE_DISHES[0].name}`}
+              >
+                <div className="relative aspect-16/10 sm:aspect-16/11 overflow-hidden bg-[#302019]/5">
+                  <img
+                    src={SIGNATURE_DISHES[0].image}
+                    alt={SIGNATURE_DISHES[0].name}
+                    className="w-full h-full object-cover group-hover:scale-104 transition-transform duration-700 ease-out"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#302019]/70 via-transparent to-transparent opacity-70 group-hover:opacity-50 transition-opacity" />
+                  
+                  <div className="absolute top-5 left-5 bg-[#B95032] text-[#FAF6EF] px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase">
+                    House Icon · Signature Brew
+                  </div>
 
-              <div className="absolute bottom-4 right-4 bg-[#FAF6EF]/90 backdrop-blur-xs p-2 rounded-full text-[#302019] group-hover:bg-[#B95032] group-hover:text-[#F7F1E7] transition-colors shadow-sm">
-                <Eye className="w-4 h-4" />
-              </div>
-            </div>
-
-            <div className="p-6 sm:p-7 flex flex-col justify-between grow">
-              <div>
-                <div className="flex items-baseline justify-between mb-2">
-                  <h3 className="font-serif text-2xl font-bold text-[#302019] group-hover:text-[#B95032] transition-colors">
-                    {SIGNATURE_DISHES[0].name}
-                  </h3>
-                  <span className="font-serif text-xl font-bold text-[#B95032] shrink-0 ml-4">
-                    {SIGNATURE_DISHES[0].price}
-                  </span>
+                  <div className="absolute bottom-5 right-5 bg-[#FAF6EF]/90 backdrop-blur-xs p-2.5 rounded-full text-[#302019] group-hover:bg-[#B95032] group-hover:text-[#FAF6EF] transition-colors shadow-sm">
+                    <Eye className="w-4 h-4" />
+                  </div>
                 </div>
-                <p className="text-sm text-[#8C7E74] leading-relaxed mb-4">
-                  {SIGNATURE_DISHES[0].description}
-                </p>
-              </div>
 
-              <div className="pt-4 border-t border-[#E4D6C2]/60 flex items-center justify-between text-xs text-[#302019]/70 font-medium">
-                <span className="inline-flex items-center text-[#728064]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#728064] mr-1.5" />
-                  Earthy Clay Kulhad
-                </span>
-                <span className="group-hover:translate-x-1 transition-transform text-[#B95032] font-semibold inline-flex items-center">
-                  Quick Details <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                </span>
-              </div>
-            </div>
-          </div>
-          </StaggerItem>
+                <div className="p-6 sm:p-8 flex flex-col justify-between grow">
+                  <div>
+                    <div className="flex items-baseline justify-between mb-3">
+                      <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#302019] group-hover:text-[#B95032] transition-colors">
+                        {SIGNATURE_DISHES[0].name}
+                      </h3>
+                      <span className="font-serif text-2xl sm:text-3xl font-bold text-[#B95032] shrink-0 ml-4">
+                        {SIGNATURE_DISHES[0].price}
+                      </span>
+                    </div>
+                    <p className="text-sm sm:text-base text-[#8C7E74] leading-relaxed mb-6 font-normal">
+                      {SIGNATURE_DISHES[0].description}
+                    </p>
+                  </div>
 
-          {/* Card 2: Surat Special Cold Cocoa (Medium, Span 6) */}
-          <StaggerItem className="lg:col-span-6 flex flex-col" animation="fade-up">
-          <div 
-            onClick={() => setSelectedDish(SIGNATURE_DISHES[1])}
-            className="w-full h-full group cursor-pointer bg-[#F7F1E7] rounded-2xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-            tabIndex={0}
-            role="button"
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(SIGNATURE_DISHES[1]); } }}
-            aria-label={`View details for ${SIGNATURE_DISHES[1].name}`}
-          >
-            <div className="relative aspect-16/10 overflow-hidden bg-[#302019]/5">
-              <img
-                src={SIGNATURE_DISHES[1].image}
-                alt={SIGNATURE_DISHES[1].name}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#302019]/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-              
-              <div className="absolute top-4 left-4 bg-[#302019] text-[#F7F1E7] px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
-                Surat Street Special
-              </div>
-
-              <div className="absolute bottom-4 right-4 bg-[#FAF6EF]/90 backdrop-blur-xs p-2 rounded-full text-[#302019] group-hover:bg-[#B95032] group-hover:text-[#F7F1E7] transition-colors shadow-sm">
-                <Eye className="w-4 h-4" />
-              </div>
-            </div>
-
-            <div className="p-6 sm:p-7 flex flex-col justify-between grow">
-              <div>
-                <div className="flex items-baseline justify-between mb-2">
-                  <h3 className="font-serif text-2xl font-bold text-[#302019] group-hover:text-[#B95032] transition-colors">
-                    {SIGNATURE_DISHES[1].name}
-                  </h3>
-                  <span className="font-serif text-xl font-bold text-[#B95032] shrink-0 ml-4">
-                    {SIGNATURE_DISHES[1].price}
-                  </span>
-                </div>
-                <p className="text-sm text-[#8C7E74] leading-relaxed mb-4">
-                  {SIGNATURE_DISHES[1].description}
-                </p>
-              </div>
-
-              <div className="pt-4 border-t border-[#E4D6C2]/60 flex items-center justify-between text-xs text-[#302019]/70 font-medium">
-                <span className="inline-flex items-center text-[#D49A3D]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#D49A3D] mr-1.5" />
-                  Ultra-Thick Chocolate
-                </span>
-                <span className="group-hover:translate-x-1 transition-transform text-[#B95032] font-semibold inline-flex items-center">
-                  Quick Details <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                </span>
-              </div>
-            </div>
-          </div>
-          </StaggerItem>
-
-          {/* Card 3: Mumbai Vada Pav (Span 6) */}
-          <StaggerItem className="lg:col-span-6 flex flex-col" animation="fade-up">
-          <div 
-            onClick={() => setSelectedDish(SIGNATURE_DISHES[2])}
-            className="w-full h-full group cursor-pointer bg-[#F7F1E7] rounded-2xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-            tabIndex={0}
-            role="button"
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(SIGNATURE_DISHES[2]); } }}
-            aria-label={`View details for ${SIGNATURE_DISHES[2].name}`}
-          >
-            <div className="relative aspect-16/10 overflow-hidden bg-[#302019]/5">
-              <img
-                src={SIGNATURE_DISHES[2].image}
-                alt={SIGNATURE_DISHES[2].name}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#302019]/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-              
-              <div className="absolute top-4 left-4 bg-[#FAF6EF] text-[#302019] border border-[#E4D6C2] px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
-                Bombay Comfort
-              </div>
-
-              <div className="absolute bottom-4 right-4 bg-[#FAF6EF]/90 backdrop-blur-xs p-2 rounded-full text-[#302019] group-hover:bg-[#B95032] group-hover:text-[#F7F1E7] transition-colors shadow-sm">
-                <Eye className="w-4 h-4" />
-              </div>
-            </div>
-
-            <div className="p-6 sm:p-7 flex flex-col justify-between grow">
-              <div>
-                <div className="flex items-baseline justify-between mb-2">
-                  <h3 className="font-serif text-2xl font-bold text-[#302019] group-hover:text-[#B95032] transition-colors">
-                    {SIGNATURE_DISHES[2].name}
-                  </h3>
-                  <div className="text-right ml-4 shrink-0">
-                    <span className="font-serif text-xl font-bold text-[#B95032]">
-                      {SIGNATURE_DISHES[2].price}
+                  <div className="pt-4 border-t border-[#E4D6C2]/80 flex items-center justify-between text-xs text-[#302019]/75 font-medium">
+                    <span className="inline-flex items-center text-[#728064] font-semibold">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#728064] mr-2" />
+                      Earthy Clay Kulhad · Fresh Mint & Ginger
+                    </span>
+                    <span className="group-hover:translate-x-1 transition-transform text-[#B95032] font-semibold inline-flex items-center">
+                      Explore Dish <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
                     </span>
                   </div>
                 </div>
-                <p className="text-sm text-[#8C7E74] leading-relaxed mb-4">
-                  {SIGNATURE_DISHES[2].description}
-                </p>
               </div>
-
-              <div className="pt-4 border-t border-[#E4D6C2]/60 flex items-center justify-between text-xs text-[#302019]/70 font-medium">
-                <span className="inline-flex items-center text-[#B95032]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#B95032] mr-1.5" />
-                  Spicy Garlic Thecha
-                </span>
-                <span className="group-hover:translate-x-1 transition-transform text-[#B95032] font-semibold inline-flex items-center">
-                  Quick Details <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                </span>
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
-          </StaggerItem>
 
-          {/* Card 4: Paneer Cheese Burst Sandwich (Span 6) */}
-          <StaggerItem className="lg:col-span-6 flex flex-col" animation="fade-up">
-          <div 
-            onClick={() => setSelectedDish(SIGNATURE_DISHES[3])}
-            className="w-full h-full group cursor-pointer bg-[#F7F1E7] rounded-2xl overflow-hidden border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-            tabIndex={0}
-            role="button"
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(SIGNATURE_DISHES[3]); } }}
-            aria-label={`View details for ${SIGNATURE_DISHES[3].name}`}
-          >
-            <div className="relative aspect-16/10 overflow-hidden bg-[#302019]/5">
-              <img
-                src={SIGNATURE_DISHES[3].image}
-                alt={SIGNATURE_DISHES[3].name}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#302019]/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-              
-              <div className="absolute top-4 left-4 bg-[#728064] text-[#F7F1E7] px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
-                Cheese Loaded
-              </div>
+          {/* Three Compact Companion Rows (Span 5) */}
+          <div className="lg:col-span-5 flex flex-col space-y-4">
+            {SIGNATURE_DISHES.slice(1).map((dish, idx) => (
+              <ScrollReveal key={dish.id} animation="fade-left" delay={0.15 + idx * 0.1} className="h-full">
+                <div
+                  onClick={() => setSelectedDish(dish)}
+                  className="h-full group cursor-pointer bg-[#F7F1E7] rounded-2xl p-4 sm:p-5 border border-[#E4D6C2] hover:border-[#B95032] shadow-xs hover:shadow-lg transition-all duration-300 flex items-center gap-4.5"
+                  tabIndex={0}
+                  role="button"
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(dish); } }}
+                  aria-label={`View details for ${dish.name}`}
+                >
+                  {/* Thumbnail */}
+                  <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden shrink-0 bg-[#302019]/10">
+                    <img
+                      src={dish.image}
+                      alt={dish.name}
+                      className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-[#302019]/15 group-hover:opacity-0 transition-opacity" />
+                  </div>
 
-              <div className="absolute bottom-4 right-4 bg-[#FAF6EF]/90 backdrop-blur-xs p-2 rounded-full text-[#302019] group-hover:bg-[#B95032] group-hover:text-[#F7F1E7] transition-colors shadow-sm">
-                <Eye className="w-4 h-4" />
-              </div>
-            </div>
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline justify-between gap-2 mb-1">
+                      <h4 className="font-serif text-lg sm:text-xl font-bold text-[#302019] group-hover:text-[#B95032] transition-colors truncate">
+                        {dish.name}
+                      </h4>
+                      <span className="font-serif text-lg font-bold text-[#B95032] shrink-0">
+                        {dish.price}
+                      </span>
+                    </div>
 
-            <div className="p-6 sm:p-7 flex flex-col justify-between grow">
-              <div>
-                <div className="flex items-baseline justify-between mb-2">
-                  <h3 className="font-serif text-2xl font-bold text-[#302019] group-hover:text-[#B95032] transition-colors">
-                    {SIGNATURE_DISHES[3].name}
-                  </h3>
-                  <span className="font-serif text-xl font-bold text-[#B95032] shrink-0 ml-4">
-                    {SIGNATURE_DISHES[3].price}
-                  </span>
+                    <p className="text-xs text-[#8C7E74] leading-relaxed line-clamp-2 mb-2.5">
+                      {dish.description}
+                    </p>
+
+                    <div className="flex items-center justify-between text-[11px] text-[#302019]/70">
+                      <span className="font-medium text-[#728064]">
+                        {dish.id === 'surat-cold-cocoa' ? 'Decadent & Chilled' : dish.id === 'mumbai-vada-pav' ? 'Spicy Garlic Thecha' : 'Cheese Loaded'}
+                      </span>
+                      <span className="text-[#B95032] font-semibold group-hover:translate-x-1 transition-transform inline-flex items-center">
+                        Details <ChevronRight className="w-3 h-3 ml-0.5" />
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm text-[#8C7E74] leading-relaxed mb-4">
-                  {SIGNATURE_DISHES[3].description}
-                </p>
-              </div>
-
-              <div className="pt-4 border-t border-[#E4D6C2]/60 flex items-center justify-between text-xs text-[#302019]/70 font-medium">
-                <span className="inline-flex items-center text-[#728064]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#728064] mr-1.5" />
-                  Marinated Paneer
-                </span>
-                <span className="group-hover:translate-x-1 transition-transform text-[#B95032] font-semibold inline-flex items-center">
-                  Quick Details <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                </span>
-              </div>
-            </div>
+              </ScrollReveal>
+            ))}
           </div>
-          </StaggerItem>
 
-        </StaggerContainer>
+        </div>
 
         {/* Bottom CTA to Full Menu */}
         <div className="mt-12 text-center">

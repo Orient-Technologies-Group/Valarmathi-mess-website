@@ -121,7 +121,7 @@ export const MenuPage: React.FC = () => {
                 aria-pressed={jainOnly}
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Jain Friendly Only</span>
+                <span>Jain Available On Request</span>
               </button>
 
               <span className="text-xs text-[#8C7E74] font-semibold hidden md:inline">
@@ -226,8 +226,8 @@ export const MenuPage: React.FC = () => {
                           ● Pure Veg
                         </span>
                         {dish.isJainAvailable && (
-                          <span className="text-[11px] font-semibold text-[#D49A3D]">
-                            ● Jain Available
+                          <span className="text-[11px] font-semibold text-[#8C7E74]">
+                            ● Jain on request
                           </span>
                         )}
                       </div>

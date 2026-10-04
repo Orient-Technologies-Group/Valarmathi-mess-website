@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
 import { Switch, Route, useLocation } from 'wouter';
-import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { MobileActionBar } from './components/MobileActionBar';
 import { ScrollProgress } from './components/ScrollProgress';
-import { PageLoader } from './components/PageLoader';
 
 import { HomePage } from './pages/HomePage';
 import { MenuPage } from './pages/MenuPage';
@@ -17,39 +15,14 @@ export function App() {
   const [location] = useLocation();
 
   useEffect(() => {
-    // Ultra-luxurious momentum smooth scrolling
-    const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      touchMultiplier: 1.5,
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    const rafId = requestAnimationFrame(raf);
-
-    // Scroll to top on route change
-    lenis.scrollTo(0, { immediate: true });
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-    };
+    // Instant scroll restoration on route navigation
+    window.scrollTo(0, 0);
   }, [location]);
 
   return (
-    <div className="min-h-screen bg-[#F7F1E7] text-[#302019] flex flex-col pb-16 sm:pb-0 selection:bg-[#B95032] selection:text-[#F7F1E7]">
+    <div className="min-h-screen bg-[#FAF6EF] text-[#302019] flex flex-col pb-16 sm:pb-0 selection:bg-[#B95032] selection:text-[#FAF6EF]">
       {/* Visual Scroll Progress Bar */}
       <ScrollProgress />
-
-      {/* Atmospheric Page Opening Loader */}
-      <PageLoader />
 
       {/* Refined Multi-Page Header */}
       <Navbar />
