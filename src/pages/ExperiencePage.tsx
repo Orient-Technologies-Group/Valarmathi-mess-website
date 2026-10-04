@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Gamepad2, X, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ScrollReveal, StaggerContainer, StaggerItem } from '../components/ScrollReveal';
+import { ScrollReveal } from '../components/ScrollReveal';
 
 interface GalleryPhoto {
   id: string;
@@ -67,6 +67,34 @@ const GALLERY_PHOTOS: GalleryPhoto[] = [
     title: 'Saibaba Colony Outlet',
     caption: 'Our lively neighborhood cafe on Alagesan Road.',
     tag: 'Outlets'
+  },
+  {
+    id: 'g9',
+    src: '/images/paneer-sandwich.jpg',
+    title: 'Paneer Cheese Burst Sandwich',
+    caption: 'Grilled artisanal bread packed with spiced paneer and melted cheese.',
+    tag: 'Food'
+  },
+  {
+    id: 'g10',
+    src: '/images/swiggy_peelamedu.jpg',
+    title: 'Tapriwala Express Kiosk',
+    caption: 'Quick counter grab-and-go service near Peelamedu and Venkatasamy Road.',
+    tag: 'Outlets'
+  },
+  {
+    id: 'g11',
+    src: '/images/real/real_dineout_ambience3.jpg',
+    title: 'Evening Cafe Lights',
+    caption: 'Warm gathering spot for college students and evening tea lovers.',
+    tag: 'Ambiance'
+  },
+  {
+    id: 'g12',
+    src: '/images/real/real_vada_pav.jpg',
+    title: 'Classic Mumbai Vada Pav',
+    caption: 'Spiced golden potato batata vada with authentic dry garlic thecha.',
+    tag: 'Food'
   }
 ];
 
@@ -81,6 +109,11 @@ export const ExperiencePage: React.FC = () => {
   const filteredPhotos = selectedTag === 'All' 
     ? GALLERY_PHOTOS 
     : GALLERY_PHOTOS.filter(p => p.tag === selectedTag);
+
+  const getCount = (tag: 'All' | 'Ambiance' | 'Games' | 'Food' | 'Outlets') => {
+    if (tag === 'All') return GALLERY_PHOTOS.length;
+    return GALLERY_PHOTOS.filter(p => p.tag === tag).length;
+  };
 
   return (
     <div className="pt-24 pb-20 bg-dark-grain text-[#F7F1E7] min-h-screen relative">
@@ -166,28 +199,40 @@ export const ExperiencePage: React.FC = () => {
                   key={tag}
                   type="button"
                   onClick={() => setSelectedTag(tag)}
-                  className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center space-x-1.5 ${
                     selectedTag === tag
-                      ? 'bg-[#B95032] text-[#F7F1E7]'
+                      ? 'bg-[#B95032] text-[#F7F1E7] shadow-sm'
                       : 'bg-[#FAF6EF]/10 text-[#E4D6C2]/70 hover:text-[#F7F1E7] hover:bg-[#FAF6EF]/20'
                   }`}
                 >
-                  {tag}
+                  <span>{tag}</span>
+                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                    selectedTag === tag ? 'bg-white/20 text-white' : 'bg-white/10 text-[#E4D6C2]/60'
+                  }`}>
+                    {getCount(tag)}
+                  </span>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Photo Grid with Stagger */}
-          <StaggerContainer
-            staggerDelay={0.08}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-          >
-            {filteredPhotos.map((photo) => (
-              <StaggerItem key={photo.id} animation="fade-up">
+          {/* Photo Grid with Instant Reliable Transition */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedTag}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            >
+              {filteredPhotos.map((photo) => (
                 <motion.div
-                  whileHover={{ y: -6, borderColor: '#D49A3D' }}
+                  key={photo.id}
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.25 }}
+                  whileHover={{ y: -6, borderColor: '#D49A3D' }}
                   onClick={() => setLightboxPhoto(photo)}
                   className="group cursor-pointer rounded-2xl overflow-hidden bg-[#3D2920] border border-[#E4D6C2]/15 transition-all duration-300 hover:shadow-2xl flex flex-col justify-between h-full"
                 >
@@ -218,9 +263,9 @@ export const ExperiencePage: React.FC = () => {
                     </p>
                   </div>
                 </motion.div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
       </div>

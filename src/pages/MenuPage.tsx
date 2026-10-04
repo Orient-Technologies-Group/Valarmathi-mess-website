@@ -1,10 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Search, X, Sparkles, Coffee, Info, Eye, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { MENU_ITEMS, type MenuItem } from '../data/tapriwalaData';
 import { DishDetailModal } from '../components/DishDetailModal';
 import { SwiggyOrderModal } from '../components/SwiggyOrderModal';
-import { ScrollReveal, StaggerContainer, StaggerItem } from '../components/ScrollReveal';
+import { ScrollReveal } from '../components/ScrollReveal';
 
 type CategoryFilter = 'All' | 'Chai & Hot Brews' | 'Cold Sips' | 'Street Food & Chaat' | 'Sandwiches & Wraps' | 'Maggi';
 
@@ -188,15 +188,22 @@ export const MenuPage: React.FC = () => {
             </button>
           </div>
         ) : (
-          <StaggerContainer
-            staggerDelay={0.06}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
-          >
-            {filteredItems.map((dish) => (
-              <StaggerItem key={dish.id} animation="fade-up">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`${selectedCategory}-${searchQuery}-${jainOnly}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6"
+            >
+              {filteredItems.map((dish) => (
                 <motion.div
+                  key={dish.id}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   whileHover={{ y: -4, borderColor: '#B95032' }}
-                  transition={{ duration: 0.25 }}
+                  transition={{ duration: 0.2 }}
                   onClick={() => setSelectedDish(dish)}
                   tabIndex={0}
                   role="button"
@@ -257,9 +264,9 @@ export const MenuPage: React.FC = () => {
                     </span>
                   </div>
                 </motion.div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         )}
 
         {/* Bottom Delivery & Order Information */}

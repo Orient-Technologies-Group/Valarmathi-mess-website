@@ -89,6 +89,7 @@ export const StaggerContainer: React.FC<StaggerContainerProps> = ({
     <motion.div
       initial="hidden"
       whileInView="visible"
+      animate="visible"
       viewport={{ once: true, margin: viewportMargin, amount: 0.15 }}
       variants={{
         hidden: {},
@@ -115,8 +116,10 @@ export const StaggerItem: React.FC<{
   const currentVariant = variants[animation];
   return (
     <motion.div
+      initial="hidden"
+      animate="visible"
       variants={currentVariant}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
       {children}
