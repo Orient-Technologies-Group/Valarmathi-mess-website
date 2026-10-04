@@ -3,6 +3,7 @@ import { Search, X, Sparkles, Coffee, Info, Eye, ExternalLink } from 'lucide-rea
 import { motion } from 'framer-motion';
 import { MENU_ITEMS, type MenuItem } from '../data/tapriwalaData';
 import { DishDetailModal } from '../components/DishDetailModal';
+import { SwiggyOrderModal } from '../components/SwiggyOrderModal';
 import { ScrollReveal, StaggerContainer, StaggerItem } from '../components/ScrollReveal';
 
 type CategoryFilter = 'All' | 'Chai & Hot Brews' | 'Cold Sips' | 'Street Food & Chaat' | 'Sandwiches & Wraps' | 'Maggi';
@@ -12,6 +13,7 @@ export const MenuPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [jainOnly, setJainOnly] = useState(false);
   const [selectedDish, setSelectedDish] = useState<MenuItem | null>(null);
+  const [isSwiggyModalOpen, setIsSwiggyModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -77,6 +79,17 @@ export const MenuPage: React.FC = () => {
             <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#B95032]/10 text-[#B95032] text-xs font-semibold border border-[#B95032]/20">
               Click Any Dish For Taste Profile
             </span>
+          </div>
+
+          <div className="mt-8">
+            <button
+              type="button"
+              onClick={() => setIsSwiggyModalOpen(true)}
+              className="inline-flex items-center space-x-2 px-6 py-3 bg-[#FC8019] hover:bg-[#e26e10] text-white text-xs uppercase tracking-wider font-semibold rounded-full shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+            >
+              <span>Order on Swiggy (3 Outlets)</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </button>
           </div>
         </ScrollReveal>
 
@@ -266,24 +279,30 @@ export const MenuPage: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-3 shrink-0">
-            <a
-              href="https://www.swiggy.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-lg shadow-sm transition-all flex items-center space-x-1.5"
+            <button
+              type="button"
+              onClick={() => setIsSwiggyModalOpen(true)}
+              className="px-6 py-3 bg-[#FC8019] hover:bg-[#e26e10] text-white text-xs uppercase tracking-wider font-semibold rounded-xl shadow-sm hover:shadow-md transition-all flex items-center space-x-2 cursor-pointer active:scale-95"
             >
-              <span>Order on Swiggy</span>
+              <span>Order on Swiggy (3 Outlets)</span>
               <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+            </button>
           </div>
         </div>
 
       </div>
 
+      {/* 3-Outlet Swiggy Selection Modal */}
+      <SwiggyOrderModal
+        isOpen={isSwiggyModalOpen}
+        onClose={() => setIsSwiggyModalOpen(false)}
+      />
+
       {/* Accessible Detail Modal */}
       <DishDetailModal
         item={selectedDish}
         onClose={() => setSelectedDish(null)}
+        onOrderSwiggy={() => setIsSwiggyModalOpen(true)}
       />
     </div>
   );

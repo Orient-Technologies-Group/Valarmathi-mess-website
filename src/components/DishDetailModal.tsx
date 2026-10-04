@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { X, Sparkles, Check, ArrowRight, Utensils } from 'lucide-react';
+import { X, Sparkles, Check, ArrowRight, Utensils, ExternalLink } from 'lucide-react';
 import type { MenuItem } from '../data/tapriwalaData';
 
 interface DishDetailModalProps {
   item: MenuItem | null;
   onClose: () => void;
   onViewFullMenu?: () => void;
+  onOrderSwiggy?: () => void;
 }
 
-export const DishDetailModal: React.FC<DishDetailModalProps> = ({ item, onClose, onViewFullMenu }) => {
+export const DishDetailModal: React.FC<DishDetailModalProps> = ({ item, onClose, onViewFullMenu, onOrderSwiggy }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -192,7 +193,20 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ item, onClose,
             Freshly prepared at all 3 outlets
           </span>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            {onOrderSwiggy && (
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  onOrderSwiggy();
+                }}
+                className="px-3.5 sm:px-4 py-2 bg-[#FC8019] hover:bg-[#e26e10] text-white text-xs uppercase tracking-wider font-semibold rounded-md shadow-xs cursor-pointer flex items-center space-x-1.5 active:scale-95 transition-all"
+              >
+                <span>Order on Swiggy</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </button>
+            )}
             {onViewFullMenu && (
               <button
                 type="button"
@@ -200,7 +214,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ item, onClose,
                   onClose();
                   onViewFullMenu();
                 }}
-                className="px-4 py-2 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-md shadow-xs cursor-pointer flex items-center space-x-1.5"
+                className="px-3.5 sm:px-4 py-2 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-md shadow-xs cursor-pointer flex items-center space-x-1.5"
               >
                 <span>Full Menu</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -209,7 +223,7 @@ export const DishDetailModal: React.FC<DishDetailModalProps> = ({ item, onClose,
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-[#FAF6EF] border border-[#E4D6C2] text-[#302019] text-xs font-semibold rounded-md hover:bg-[#E4D6C2]/40 cursor-pointer"
+              className="px-3.5 sm:px-4 py-2 bg-[#FAF6EF] border border-[#E4D6C2] text-[#302019] text-xs font-semibold rounded-md hover:bg-[#E4D6C2]/40 cursor-pointer"
             >
               Close
             </button>
