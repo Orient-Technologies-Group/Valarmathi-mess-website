@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'wouter';
 import { Hero } from '../components/Hero';
 import { BrandStrip } from '../components/BrandStrip';
+import { ChaiJourney } from '../components/ChaiJourney';
 import { OurStory } from '../components/OurStory';
 import { SignatureFavourites } from '../components/SignatureFavourites';
 import { ChaiCompanion } from '../components/ChaiCompanion';
@@ -37,6 +38,9 @@ export const HomePage: React.FC = () => {
 
       {/* Brand Strip */}
       <BrandStrip />
+
+      {/* Signature “Journey of a Chai” Sticky Scroll Sequence */}
+      <ChaiJourney onExploreMenu={handleExploreMenu} />
 
       {/* Story Introduction */}
       <OurStory />

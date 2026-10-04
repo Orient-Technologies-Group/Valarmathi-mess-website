@@ -7,6 +7,8 @@ export const TapriExperience: React.FC = () => {
   return (
     <section id="experience" className="py-24 lg:py-32 bg-dark-grain text-[#F7F1E7] relative overflow-hidden">
       
+      {/* Warm Cream-to-Espresso Atmospheric Blend */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#FAF6EF] to-transparent opacity-15 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         

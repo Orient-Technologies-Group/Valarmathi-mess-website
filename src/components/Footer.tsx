@@ -21,37 +21,58 @@ export const Footer: React.FC = () => {
             <span className="w-6 h-[1px] bg-[#D49A3D]" />
           </div>
 
-          <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#F7F1E7] mb-8">
-            See you over chai.
-          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center text-center lg:text-left mb-10">
+            <div className="lg:col-span-8">
+              <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#F7F1E7] mb-6">
+                See you over chai.
+              </h2>
+              <p className="text-base sm:text-lg text-[#E4D6C2]/80 max-w-xl mx-auto lg:mx-0 mb-8 font-normal">
+                Pull up a chair at our R.S. Puram, Saibaba Colony, or Venkatasamy Road outlets. Your fresh kulhad brew is steaming.
+              </p>
 
-          <p className="text-base sm:text-lg text-[#E4D6C2]/80 max-w-xl mx-auto mb-10 font-normal">
-            Pull up a chair at our R.S. Puram, Saibaba Colony, or Venkatasamy Road outlets. Your fresh kulhad brew is steaming.
-          </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <Link
+                  href="/outlets"
+                  className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-8 py-3.5 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-md shadow-lg transition-all active:scale-98 cursor-pointer"
+                >
+                  <MapPin className="w-4 h-4" />
+                  <span>Find your nearest Tapri</span>
+                </Link>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/outlets"
-              className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-8 py-3.5 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-md shadow-lg transition-all active:scale-98 cursor-pointer"
-            >
-              <MapPin className="w-4 h-4" />
-              <span>Find your nearest Tapri</span>
-            </Link>
+                <a
+                  href="https://www.instagram.com/tapri.wala/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-7 py-3.5 bg-[#FAF6EF]/10 hover:bg-[#FAF6EF]/20 text-[#FAF6EF] border border-[#FAF6EF]/20 text-xs uppercase tracking-wider font-semibold rounded-md transition-all active:scale-98"
+                >
+                  <svg className="w-4 h-4 text-[#D49A3D]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                  </svg>
+                  <span>Follow @tapri.wala</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
+                </a>
+              </div>
+            </div>
 
-            <a
-              href="https://www.instagram.com/tapri.wala/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-7 py-3.5 bg-[#FAF6EF]/10 hover:bg-[#FAF6EF]/20 text-[#FAF6EF] border border-[#FAF6EF]/20 text-xs uppercase tracking-wider font-semibold rounded-md transition-all active:scale-98"
-            >
-              <svg className="w-4 h-4 text-[#D49A3D]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-              </svg>
-              <span>Follow @tapri.wala</span>
-              <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
-            </a>
+            {/* Final Warm Kulhad Visual Panel */}
+            <div className="lg:col-span-4 flex justify-center">
+              <div className="relative w-48 sm:w-56 aspect-4/5 rounded-2xl overflow-hidden shadow-2xl border-2 border-[#FAF6EF]/20 group">
+                <img
+                  src="/images/kulhad-chai.jpg"
+                  alt="A warm clay kulhad of chai ready for the next guest"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#261710]/80 via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3 text-center">
+                  <span className="font-serif italic text-xs text-[#E4D6C2]">
+                    Brewed fresh for every visitor
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
