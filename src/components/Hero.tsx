@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Sparkles, MapPin, ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface HeroProps {
   onExploreMenu: () => void;
@@ -8,15 +8,33 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onFindOutlets }) => {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start']
+  });
+
+  const headlineY = useTransform(scrollYProgress, [0, 1], [0, -45]);
+  const headlineOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.2]);
+  const cupY = useTransform(scrollYProgress, [0, 1], [0, 32]);
+  const cupScale = useTransform(scrollYProgress, [0, 1], [1, 0.97]);
+  const sealRotate = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const cueOpacity = useTransform(scrollYProgress, [0, 0.35], [1, 0]);
+
   return (
     <section
+      ref={heroRef}
       className="relative min-h-[90vh] lg:min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-16 sm:pb-20 bg-[#FAF6EF] overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           {/* Left Column: Editorial Typography & Actions */}
-          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center order-2 lg:order-1">
+          <motion.div 
+            style={{ y: headlineY, opacity: headlineOpacity }}
+            className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center order-2 lg:order-1 will-change-transform"
+          >
+
             {/* Eyebrow */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
@@ -95,11 +113,13 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onFindOutlets }) => {
               <span>·</span>
               <span>Pocket-friendly</span>
             </motion.div>
-          </div>
+          </motion.div>
 
-          {/* Right Column: Prominent Kulhad Image Panel */}
-          <div className="lg:col-span-6 xl:col-span-6 relative order-1 lg:order-2 flex justify-center">
-            
+          {/* Right Column: Prominent Kulhad Image Panel with Gentle Parallax */}
+          <motion.div 
+            style={{ y: cupY, scale: cupScale }}
+            className="lg:col-span-6 xl:col-span-6 relative order-1 lg:order-2 flex justify-center will-change-transform"
+          >
             <div className="relative w-full max-w-[480px] lg:max-w-[520px] aspect-4/3 sm:aspect-5/4 rounded-2xl">
               {/* Image Frame with fine shadow and restrained border */}
               <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl border border-[#E4D6C2] bg-[#FAF6EF]">
@@ -133,9 +153,10 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onFindOutlets }) => {
                 <div className="w-1.5 h-10 bg-gradient-to-t from-white/25 via-white/10 to-transparent rounded-full blur-[1.5px] animate-steam-3 absolute right-6" />
               </div>
 
-              {/* Rotating Circular Brand Seal */}
-              <div 
-                className="absolute -top-5 -right-3 sm:-top-7 sm:-right-7 w-22 h-22 sm:w-26 sm:h-26 z-20 pointer-events-none"
+              {/* Rotating Circular Brand Seal with scroll-linked rotation */}
+              <motion.div 
+                style={{ rotate: sealRotate }}
+                className="absolute -top-5 -right-3 sm:-top-7 sm:-right-7 w-22 h-22 sm:w-26 sm:h-26 z-20 pointer-events-none will-change-transform"
                 aria-hidden="true"
               >
                 <div className="relative w-full h-full flex items-center justify-center">
@@ -158,7 +179,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onFindOutlets }) => {
                     <Sparkles className="w-4 h-4" />
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Handwritten Understated Annotation */}
               <div
@@ -172,12 +193,15 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onFindOutlets }) => {
 
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
 
-        {/* Scroll Cue at Bottom */}
-        <div className="mt-12 lg:mt-16 flex flex-col items-center justify-center text-center">
+        {/* Scroll Cue at Bottom with Soft Fade */}
+        <motion.div 
+          style={{ opacity: cueOpacity }}
+          className="mt-12 lg:mt-16 flex flex-col items-center justify-center text-center will-change-transform"
+        >
           <a
             href="#story"
             className="group inline-flex flex-col items-center text-[#8C7E74] hover:text-[#B95032] transition-colors focus:outline-none"
@@ -190,7 +214,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onFindOutlets }) => {
               <div className="w-1 h-1.5 bg-[#B95032] rounded-full animate-bounce" />
             </div>
           </a>
-        </div>
+        </motion.div>
 
       </div>
     </section>

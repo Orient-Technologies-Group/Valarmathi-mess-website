@@ -5,10 +5,19 @@ import { ScrollReveal, StaggerContainer, StaggerItem } from './ScrollReveal';
 
 export const TapriExperience: React.FC = () => {
   return (
-    <section id="experience" className="py-24 lg:py-32 bg-dark-grain text-[#F7F1E7] relative overflow-hidden">
+    <section id="experience" className="py-24 lg:py-32 bg-[#261710] text-[#F7F1E7] relative overflow-hidden">
       
-      {/* Warm Cream-to-Espresso Atmospheric Blend */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#FAF6EF] to-transparent opacity-15 pointer-events-none" />
+      {/* Seamless Organic Top Transition Wave from Light Parchment */}
+      <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 pointer-events-none" aria-hidden="true">
+        <svg 
+          viewBox="0 0 1200 120" 
+          preserveAspectRatio="none" 
+          className="relative block w-full h-8 sm:h-12 text-[#FAF6EF] fill-current"
+        >
+          <path d="M0,0 C300,60 900,60 1200,0 L1200,0 L0,0 Z"></path>
+        </svg>
+      </div>
+
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -215,6 +224,17 @@ export const TapriExperience: React.FC = () => {
 
         </StaggerContainer>
 
+      </div>
+
+      {/* Seamless Organic Bottom Transition Wave into Warm Parchment */}
+      <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none z-10 pointer-events-none" aria-hidden="true">
+        <svg 
+          viewBox="0 0 1200 120" 
+          preserveAspectRatio="none" 
+          className="relative block w-full h-8 sm:h-12 text-[#FAF6EF] fill-current"
+        >
+          <path d="M0,120 C300,60 900,60 1200,120 L1200,120 L0,120 Z"></path>
+        </svg>
       </div>
     </section>
   );

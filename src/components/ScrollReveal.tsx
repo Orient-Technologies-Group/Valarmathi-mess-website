@@ -14,27 +14,27 @@ interface ScrollRevealProps extends HTMLMotionProps<'div'> {
 
 const variants: Record<AnimationType, { hidden: any; visible: any }> = {
   'fade-up': {
-    hidden: { opacity: 0, y: 16 },
+    hidden: { opacity: 0, y: 28 },
     visible: { opacity: 1, y: 0 }
   },
   'fade-down': {
-    hidden: { opacity: 0, y: -16 },
+    hidden: { opacity: 0, y: -28 },
     visible: { opacity: 1, y: 0 }
   },
   'fade-left': {
-    hidden: { opacity: 0, x: -16 },
+    hidden: { opacity: 0, x: -28 },
     visible: { opacity: 1, x: 0 }
   },
   'fade-right': {
-    hidden: { opacity: 0, x: 16 },
+    hidden: { opacity: 0, x: 28 },
     visible: { opacity: 1, x: 0 }
   },
   'zoom-in': {
-    hidden: { opacity: 0, scale: 0.98 },
+    hidden: { opacity: 0, scale: 0.94 },
     visible: { opacity: 1, scale: 1 }
   },
   'reveal': {
-    hidden: { opacity: 0, y: 12 },
+    hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
   }
 };
@@ -43,9 +43,9 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   children,
   animation = 'fade-up',
   delay = 0,
-  duration = 0.35,
+  duration = 0.55,
   className = '',
-  viewportMargin = '50px',
+  viewportMargin = '-40px',
   ...rest
 }) => {
   const currentVariant = variants[animation];
@@ -54,12 +54,12 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: viewportMargin }}
+      viewport={{ once: true, margin: viewportMargin, amount: 0.15 }}
       variants={currentVariant}
       transition={{
         duration,
         delay,
-        ease: 'easeOut'
+        ease: [0.16, 1, 0.3, 1] // Apple/Linear-style silky easeOut
       }}
       className={className}
       {...rest}
@@ -79,17 +79,17 @@ interface StaggerContainerProps extends HTMLMotionProps<'div'> {
 
 export const StaggerContainer: React.FC<StaggerContainerProps> = ({
   children,
-  staggerDelay = 0.05,
+  staggerDelay = 0.08,
   delay = 0,
   className = '',
-  viewportMargin = '50px',
+  viewportMargin = '-40px',
   ...rest
 }) => {
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: viewportMargin }}
+      viewport={{ once: true, margin: viewportMargin, amount: 0.15 }}
       variants={{
         hidden: {},
         visible: {
@@ -116,7 +116,7 @@ export const StaggerItem: React.FC<{
   return (
     <motion.div
       variants={currentVariant}
-      transition={{ duration: 0.35, ease: 'easeOut' }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
       {children}

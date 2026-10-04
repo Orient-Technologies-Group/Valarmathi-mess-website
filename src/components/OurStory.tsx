@@ -124,14 +124,13 @@ export const OurStory: React.FC = () => {
                   </div>
                 </motion.div>
 
-                {/* Secondary Floating Card with Subtle Float Animation */}
+                {/* Secondary Floating Card */}
                 <motion.div
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.5, duration: 0.6 }}
-                  animate={{ y: [0, -6, 0] }}
-                  // continuous subtle floating after revealed
+                  transition={{ delay: 0.35, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -4 }}
                   className="absolute -bottom-6 -left-6 sm:-bottom-8 sm:-left-8 bg-[#FAF6EF] p-4 sm:p-5 rounded-xl border border-[#E4D6C2] shadow-xl max-w-[240px] hidden sm:block"
                 >
                   <div className="flex items-center space-x-2 mb-1.5">

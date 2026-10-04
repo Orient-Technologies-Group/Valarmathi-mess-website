@@ -2,8 +2,8 @@ import React from 'react';
 import { useLocation } from 'wouter';
 import { Hero } from '../components/Hero';
 import { BrandStrip } from '../components/BrandStrip';
-import { ChaiJourney } from '../components/ChaiJourney';
 import { OurStory } from '../components/OurStory';
+import { ChaiJourneySection } from '../components/ChaiJourneySection';
 import { SignatureFavourites } from '../components/SignatureFavourites';
 import { ChaiCompanion } from '../components/ChaiCompanion';
 import { TapriExperience } from '../components/TapriExperience';
@@ -36,17 +36,18 @@ export const HomePage: React.FC = () => {
         onFindOutlets={handleFindOutlets}
       />
 
-      {/* Brand Strip */}
+      {/* Brand Strip Marquee */}
       <BrandStrip />
-
-      {/* Signature “Journey of a Chai” Sticky Scroll Sequence */}
-      <ChaiJourney onExploreMenu={handleExploreMenu} />
 
       {/* Story Introduction */}
       <OurStory />
 
+      {/* Signature “Journey of a Chai” Fluid Scrolling Chapters */}
+      <ChaiJourneySection onExploreMenu={handleExploreMenu} />
+
       {/* Signature Items Showcase */}
       <SignatureFavourites onViewFullMenu={handleExploreMenu} />
+
 
       {/* Interactive Chai Pairing Companion */}
       <ChaiCompanion onHighlightMenu={handleHighlightMenu} />

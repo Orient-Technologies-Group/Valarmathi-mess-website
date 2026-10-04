@@ -108,46 +108,46 @@ export const SignatureFavourites: React.FC<SignatureFavouritesProps> = ({ onView
             </ScrollReveal>
           </div>
 
-          {/* Panels 2 & 3: Staggered Settling Companion Panels (Cold Cocoa & Paneer Sandwich) */}
-          <div className="lg:col-span-6 flex flex-col justify-between space-y-6">
+          {/* Panels Right: 3 Staggered Settling Companion Panels (Cold Cocoa, Vada Pav, Paneer Sandwich) */}
+          <div className="lg:col-span-6 flex flex-col justify-between space-y-4">
             
             {/* Panel 2: Surat Special Cold Cocoa */}
             <ScrollReveal animation="fade-left" delay={0.15}>
               <motion.div
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.3 }}
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.25 }}
                 onClick={() => setSelectedDish(SIGNATURE_DISHES[1])}
-                className="group cursor-pointer bg-[#F7F1E7] rounded-3xl p-5 sm:p-6 border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-center gap-6"
+                className="group cursor-pointer bg-[#F7F1E7] rounded-2xl p-4 sm:p-5 border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col sm:flex-row items-center gap-5"
                 tabIndex={0}
                 role="button"
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(SIGNATURE_DISHES[1]); } }}
                 aria-label={`View details for ${SIGNATURE_DISHES[1].name}`}
               >
-                <div className="relative w-full sm:w-44 h-44 rounded-2xl overflow-hidden shrink-0 bg-[#302019]/10">
+                <div className="relative w-full sm:w-36 h-32 rounded-xl overflow-hidden shrink-0 bg-[#302019]/10">
                   <img
                     src={SIGNATURE_DISHES[1].image}
                     alt={SIGNATURE_DISHES[1].name}
                     className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
                     loading="lazy"
                   />
-                  <div className="absolute top-3 left-3 bg-[#302019] text-[#FAF6EF] px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                  <div className="absolute top-2 left-2 bg-[#302019] text-[#FAF6EF] px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
                     Surat Special
                   </div>
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-baseline justify-between gap-2 mb-1.5">
-                    <h4 className="font-serif text-xl sm:text-2xl font-bold text-[#302019] group-hover:text-[#B95032] transition-colors">
+                  <div className="flex items-baseline justify-between gap-2 mb-1">
+                    <h4 className="font-serif text-lg sm:text-xl font-bold text-[#302019] group-hover:text-[#B95032] transition-colors truncate">
                       {SIGNATURE_DISHES[1].name}
                     </h4>
-                    <span className="font-serif text-xl font-bold text-[#B95032] shrink-0">
+                    <span className="font-serif text-lg font-bold text-[#B95032] shrink-0">
                       {SIGNATURE_DISHES[1].price}
                     </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-[#8C7E74] leading-relaxed mb-3">
+                  <p className="text-xs text-[#8C7E74] leading-relaxed mb-2.5 line-clamp-2">
                     {SIGNATURE_DISHES[1].description}
                   </p>
-                  <div className="flex items-center justify-between text-xs text-[#302019]/75 font-medium pt-2 border-t border-[#E4D6C2]/60">
+                  <div className="flex items-center justify-between text-[11px] text-[#302019]/75 font-medium pt-2 border-t border-[#E4D6C2]/60">
                     <span className="text-[#D49A3D] font-semibold">Decadent Chilled Cocoa</span>
                     <span className="text-[#B95032] font-semibold group-hover:translate-x-1 transition-transform inline-flex items-center">
                       Quick Details <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
@@ -157,43 +157,89 @@ export const SignatureFavourites: React.FC<SignatureFavouritesProps> = ({ onView
               </motion.div>
             </ScrollReveal>
 
-            {/* Panel 3: Paneer Cheese Burst Sandwich */}
+            {/* Panel 3: Classic Mumbai Vada Pav */}
+            <ScrollReveal animation="fade-left" delay={0.2}>
+              <motion.div
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.25 }}
+                onClick={() => setSelectedDish(SIGNATURE_DISHES[2])}
+                className="group cursor-pointer bg-[#F7F1E7] rounded-2xl p-4 sm:p-5 border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col sm:flex-row items-center gap-5"
+                tabIndex={0}
+                role="button"
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(SIGNATURE_DISHES[2]); } }}
+                aria-label={`View details for ${SIGNATURE_DISHES[2].name}`}
+              >
+                <div className="relative w-full sm:w-36 h-32 rounded-xl overflow-hidden shrink-0 bg-[#302019]/10">
+                  <img
+                    src={SIGNATURE_DISHES[2].image}
+                    alt={SIGNATURE_DISHES[2].name}
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-2 left-2 bg-[#B95032] text-[#FAF6EF] px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
+                    Bombay Street
+                  </div>
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-baseline justify-between gap-2 mb-1">
+                    <h4 className="font-serif text-lg sm:text-xl font-bold text-[#302019] group-hover:text-[#B95032] transition-colors truncate">
+                      {SIGNATURE_DISHES[2].name}
+                    </h4>
+                    <span className="font-serif text-lg font-bold text-[#B95032] shrink-0">
+                      {SIGNATURE_DISHES[2].price}
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#8C7E74] leading-relaxed mb-2.5 line-clamp-2">
+                    {SIGNATURE_DISHES[2].description}
+                  </p>
+                  <div className="flex items-center justify-between text-[11px] text-[#302019]/75 font-medium pt-2 border-t border-[#E4D6C2]/60">
+                    <span className="text-[#B95032] font-semibold">Dry Garlic Thecha & Mint</span>
+                    <span className="text-[#B95032] font-semibold group-hover:translate-x-1 transition-transform inline-flex items-center">
+                      Quick Details <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </ScrollReveal>
+
+            {/* Panel 4: Paneer Cheese Burst Sandwich */}
             <ScrollReveal animation="fade-left" delay={0.25}>
               <motion.div
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.3 }}
+                whileHover={{ y: -3 }}
+                transition={{ duration: 0.25 }}
                 onClick={() => setSelectedDish(SIGNATURE_DISHES[3])}
-                className="group cursor-pointer bg-[#F7F1E7] rounded-3xl p-5 sm:p-6 border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-center gap-6"
+                className="group cursor-pointer bg-[#F7F1E7] rounded-2xl p-4 sm:p-5 border border-[#E4D6C2] hover:border-[#B95032] shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col sm:flex-row items-center gap-5"
                 tabIndex={0}
                 role="button"
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedDish(SIGNATURE_DISHES[3]); } }}
                 aria-label={`View details for ${SIGNATURE_DISHES[3].name}`}
               >
-                <div className="relative w-full sm:w-44 h-44 rounded-2xl overflow-hidden shrink-0 bg-[#302019]/10">
+                <div className="relative w-full sm:w-36 h-32 rounded-xl overflow-hidden shrink-0 bg-[#302019]/10">
                   <img
                     src={SIGNATURE_DISHES[3].image}
                     alt={SIGNATURE_DISHES[3].name}
                     className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out"
                     loading="lazy"
                   />
-                  <div className="absolute top-3 left-3 bg-[#728064] text-[#FAF6EF] px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                  <div className="absolute top-2 left-2 bg-[#728064] text-[#FAF6EF] px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
                     Cheese Loaded
                   </div>
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-baseline justify-between gap-2 mb-1.5">
-                    <h4 className="font-serif text-xl sm:text-2xl font-bold text-[#302019] group-hover:text-[#B95032] transition-colors">
+                  <div className="flex items-baseline justify-between gap-2 mb-1">
+                    <h4 className="font-serif text-lg sm:text-xl font-bold text-[#302019] group-hover:text-[#B95032] transition-colors truncate">
                       {SIGNATURE_DISHES[3].name}
                     </h4>
-                    <span className="font-serif text-xl font-bold text-[#B95032] shrink-0">
+                    <span className="font-serif text-lg font-bold text-[#B95032] shrink-0">
                       {SIGNATURE_DISHES[3].price}
                     </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-[#8C7E74] leading-relaxed mb-3">
+                  <p className="text-xs text-[#8C7E74] leading-relaxed mb-2.5 line-clamp-2">
                     {SIGNATURE_DISHES[3].description}
                   </p>
-                  <div className="flex items-center justify-between text-xs text-[#302019]/75 font-medium pt-2 border-t border-[#E4D6C2]/60">
+                  <div className="flex items-center justify-between text-[11px] text-[#302019]/75 font-medium pt-2 border-t border-[#E4D6C2]/60">
                     <span className="text-[#728064] font-semibold">Marinated Cottage Cheese</span>
                     <span className="text-[#B95032] font-semibold group-hover:translate-x-1 transition-transform inline-flex items-center">
                       Quick Details <ChevronRight className="w-3.5 h-3.5 ml-0.5" />

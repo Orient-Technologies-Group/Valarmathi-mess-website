@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { MobileActionBar } from './components/MobileActionBar';
 import { ScrollProgress } from './components/ScrollProgress';
+import { ScrollToTop } from './components/ScrollToTop';
 
 import { HomePage } from './pages/HomePage';
 import { MenuPage } from './pages/MenuPage';
@@ -44,6 +45,9 @@ export function App() {
 
       {/* Sticky Mobile Bottom Bar */}
       <MobileActionBar />
+
+      {/* Floating Back to Top Button */}
+      <ScrollToTop />
     </div>
   );
 }
