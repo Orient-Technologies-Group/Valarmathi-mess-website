@@ -13,9 +13,6 @@
     --amber: #D49A3D;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
 
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;

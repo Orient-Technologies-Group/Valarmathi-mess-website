@@ -14,28 +14,28 @@ interface ScrollRevealProps extends HTMLMotionProps<'div'> {
 
 const variants: Record<AnimationType, { hidden: any; visible: any }> = {
   'fade-up': {
-    hidden: { opacity: 0, y: 36 },
+    hidden: { opacity: 0, y: 16 },
     visible: { opacity: 1, y: 0 }
   },
   'fade-down': {
-    hidden: { opacity: 0, y: -36 },
+    hidden: { opacity: 0, y: -16 },
     visible: { opacity: 1, y: 0 }
   },
   'fade-left': {
-    hidden: { opacity: 0, x: -36 },
+    hidden: { opacity: 0, x: -16 },
     visible: { opacity: 1, x: 0 }
   },
   'fade-right': {
-    hidden: { opacity: 0, x: 36 },
+    hidden: { opacity: 0, x: 16 },
     visible: { opacity: 1, x: 0 }
   },
   'zoom-in': {
-    hidden: { opacity: 0, scale: 0.92 },
+    hidden: { opacity: 0, scale: 0.98 },
     visible: { opacity: 1, scale: 1 }
   },
   'reveal': {
-    hidden: { opacity: 0, y: 24, filter: 'blur(6px)' },
-    visible: { opacity: 1, y: 0, filter: 'blur(0px)' }
+    hidden: { opacity: 0, y: 12 },
+    visible: { opacity: 1, y: 0 }
   }
 };
 
@@ -43,9 +43,9 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   children,
   animation = 'fade-up',
   delay = 0,
-  duration = 0.7,
+  duration = 0.35,
   className = '',
-  viewportMargin = '-60px',
+  viewportMargin = '50px',
   ...rest
 }) => {
   const currentVariant = variants[animation];
@@ -59,7 +59,7 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
       transition={{
         duration,
         delay,
-        ease: [0.22, 1, 0.36, 1] // Custom smooth editorial cubic-bezier
+        ease: 'easeOut'
       }}
       className={className}
       {...rest}
@@ -79,10 +79,10 @@ interface StaggerContainerProps extends HTMLMotionProps<'div'> {
 
 export const StaggerContainer: React.FC<StaggerContainerProps> = ({
   children,
-  staggerDelay = 0.12,
+  staggerDelay = 0.05,
   delay = 0,
   className = '',
-  viewportMargin = '-60px',
+  viewportMargin = '50px',
   ...rest
 }) => {
   return (
@@ -116,7 +116,7 @@ export const StaggerItem: React.FC<{
   return (
     <motion.div
       variants={currentVariant}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
       className={className}
     >
       {children}

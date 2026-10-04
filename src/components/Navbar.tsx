@@ -8,10 +8,15 @@ export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    let lastScrolled = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      const scrolled = window.scrollY > 30;
+      if (scrolled !== lastScrolled) {
+        lastScrolled = scrolled;
+        setIsScrolled(scrolled);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -38,10 +43,10 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-200 ${
           isScrolled
-            ? 'bg-[#F7F1E7]/95 backdrop-blur-md shadow-sm border-b border-[#E4D6C2]/80 py-3'
-            : 'bg-[#F7F1E7]/80 backdrop-blur-xs py-4.5 border-b border-[#E4D6C2]/40'
+            ? 'bg-[#FAF6EF] shadow-sm border-b border-[#E4D6C2]/80 py-3'
+            : 'bg-[#FAF6EF]/90 py-4.5 border-b border-[#E4D6C2]/40'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

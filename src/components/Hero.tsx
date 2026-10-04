@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Sparkles, MapPin, ArrowRight } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface HeroProps {
   onExploreMenu: () => void;
@@ -8,32 +8,15 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onFindOutlets }) => {
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end start']
-  });
-
-  // Purposeful, lightweight scroll transforms tied smoothly to viewport exit
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -45]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0.2]);
-  const cupY = useTransform(scrollYProgress, [0, 1], [0, 65]);
-  const cupScale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
-  const sealRotate = useTransform(scrollYProgress, [0, 1], [0, 180]);
-
   return (
     <section
-      ref={containerRef}
       className="relative min-h-[90vh] lg:min-h-screen flex items-center justify-center pt-24 sm:pt-28 pb-16 sm:pb-20 bg-[#FAF6EF] overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           {/* Left Column: Editorial Typography & Actions */}
-          <motion.div 
-            style={{ y: textY, opacity: textOpacity }}
-            className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center order-2 lg:order-1"
-          >
+          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center order-2 lg:order-1">
             {/* Eyebrow */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
@@ -112,18 +95,12 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onFindOutlets }) => {
               <span>·</span>
               <span>Pocket-friendly</span>
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* Right Column: Prominent Kulhad Image Panel */}
           <div className="lg:col-span-6 xl:col-span-6 relative order-1 lg:order-2 flex justify-center">
             
-            <motion.div
-              style={{ y: cupY, scale: cupScale }}
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.75, delay: 0.15, ease: [0.25, 1, 0.5, 1] }}
-              className="relative w-full max-w-[480px] lg:max-w-[520px] aspect-4/3 sm:aspect-5/4 rounded-2xl"
-            >
+            <div className="relative w-full max-w-[480px] lg:max-w-[520px] aspect-4/3 sm:aspect-5/4 rounded-2xl">
               {/* Image Frame with fine shadow and restrained border */}
               <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-xl border border-[#E4D6C2] bg-[#FAF6EF]">
                 <img
@@ -157,8 +134,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onFindOutlets }) => {
               </div>
 
               {/* Rotating Circular Brand Seal */}
-              <motion.div 
-                style={{ rotate: sealRotate }}
+              <div 
                 className="absolute -top-5 -right-3 sm:-top-7 sm:-right-7 w-22 h-22 sm:w-26 sm:h-26 z-20 pointer-events-none"
                 aria-hidden="true"
               >
@@ -182,7 +158,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onFindOutlets }) => {
                     <Sparkles className="w-4 h-4" />
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Handwritten Understated Annotation */}
               <div
@@ -194,7 +170,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onFindOutlets }) => {
                 </span>
               </div>
 
-            </motion.div>
+            </div>
 
           </div>
 

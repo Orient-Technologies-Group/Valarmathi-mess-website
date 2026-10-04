@@ -7,19 +7,6 @@ export const TapriExperience: React.FC = () => {
   return (
     <section id="experience" className="py-24 lg:py-32 bg-dark-grain text-[#F7F1E7] relative overflow-hidden">
       
-      {/* Animated Warm Ambient Glows */}
-      <motion.div 
-        animate={{ scale: [1, 1.15, 1], opacity: [0.12, 0.22, 0.12] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/3 left-10 w-96 h-96 bg-[#B95032]/20 rounded-full blur-3xl pointer-events-none"
-        aria-hidden="true" 
-      />
-      <motion.div 
-        animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.18, 0.08] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-        className="absolute bottom-10 right-10 w-80 h-80 bg-[#D49A3D]/15 rounded-full blur-3xl pointer-events-none"
-        aria-hidden="true" 
-      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         

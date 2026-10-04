@@ -125,13 +125,9 @@ export const ChaiCompanion: React.FC<ChaiCompanionProps> = ({ onHighlightMenu })
 
                   {/* Plus Indicator */}
                   <div className="md:col-span-2 flex flex-col items-center justify-center">
-                    <motion.div 
-                      animate={{ scale: [1, 1.12, 1] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                      className="w-10 h-10 rounded-full bg-[#B95032] text-[#F7F1E7] flex items-center justify-center font-bold text-lg shadow-sm"
-                    >
+                    <div className="w-10 h-10 rounded-full bg-[#B95032] text-[#F7F1E7] flex items-center justify-center font-bold text-lg shadow-sm">
                       +
-                    </motion.div>
+                    </div>
                     <span className="text-[11px] font-serif italic text-[#8C7E74] mt-1.5">
                       perfect match
                     </span>
