@@ -32,6 +32,7 @@ export interface Outlet {
   image: string;
   featuredPill: string;
   amenities: string[];
+  callWriteup?: string;
 }
 
 export interface GoogleReview {
@@ -676,42 +677,45 @@ export const CHAI_PAIRINGS: ChaiPairing[] = [
 export const OUTLETS: Outlet[] = [
   {
     id: 'rs-puram',
-    name: 'R.S. Puram — Flagship Cafe',
+    name: 'R.S. Puram - Flagship Cafe',
     type: 'Dine-in Cafe & Lounge',
-    address: '551-B Lokamanya Street (West), Diwan Bahadur (DB) Road Corner, R.S. Puram, Coimbatore, Tamil Nadu – 641002',
+    address: '551-B Lokamanya Street (West), Diwan Bahadur (DB) Road Corner, R.S. Puram, Coimbatore, Tamil Nadu - 641002',
     phone: '+91 80565 44622',
-    hours: 'Monday – Sunday: 11:00 AM – 10:30 PM',
+    hours: 'Monday - Sunday: 11:00 AM - 10:30 PM',
     detail: 'Our premier flagship outlet. Featuring cozy indoor seating, warm incandescent pendant lights, exposed brick aesthetics, and a dedicated library of board games (Jenga, Scrabble, Uno, Monopoly) on every table.',
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Tapriwala+The+Contemporary+Tea+Cafe+551-B+Lokamanya+Street+West+DB+Road+Corner+RS+Puram+Coimbatore+641002',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Tapriwala+the+contemporary+tea+cafe+551-B+Lokamanya+Street+West+RS+Puram+Coimbatore+641002',
     image: '/images/swiggy_rspuram.jpg',
     featuredPill: 'Flagship Outlet · Board Games',
-    amenities: ['Board Games (Free)', 'Dine-in Seating', 'Air Conditioned', 'Jain Menu Available', 'Swiggy / Zomato Pickup']
+    amenities: ['Board Games (Free)', 'Dine-in Seating', 'Air Conditioned', 'Jain Menu Available', 'Swiggy / Zomato Pickup'],
+    callWriteup: 'Planning a visit with friends or family? Feel free to call our R.S. Puram flagship lounge for table reservations, board game bookings (Jenga, Uno, Monopoly), Jain food preparations, or fresh takeaway orders.'
   },
   {
     id: 'saibaba-colony',
     name: 'Saibaba Colony',
     type: 'Neighborhood Cafe',
-    address: '32, Alagesan Road, Saibaba Colony, Coimbatore, Tamil Nadu – 641011',
+    address: '32, Alagesan Road, Saibaba Colony, Coimbatore, Tamil Nadu - 641011',
     phone: '+91 80565 41119',
-    hours: 'Monday – Sunday: 11:00 AM – 10:30 PM',
+    hours: 'Monday - Sunday: 11:00 AM - 10:30 PM',
     detail: 'A beloved neighborhood hangout for students and families in Saibaba Colony. Quick seating, warm acoustic cafe music, evening street chaat, and steaming hot kulhad sips.',
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Tapriwala+32+Alagesan+Road+Saibaba+Colony+Coimbatore+641011',
     image: '/images/swiggy_saibaba.jpg',
     featuredPill: 'Neighborhood Favorite',
-    amenities: ['Cozy Indoor Seating', 'Quick Service', 'Pure Vegetarian', 'Takeaway Counter']
+    amenities: ['Cozy Indoor Seating', 'Quick Service', 'Pure Vegetarian', 'Takeaway Counter'],
+    callWriteup: 'Dropping by our neighborhood cafe? Call our Saibaba Colony front desk for seating availability, fresh evening chaat specials, hot kulhad chai flasks, or directions.'
   },
   {
-    id: 'express-kiosk',
-    name: 'Tapriwala Express',
-    type: 'Grab-and-Go Kiosk',
-    address: '130, Venkatasamy Road West, R.S. Puram, Coimbatore, Tamil Nadu – 641002',
-    phone: undefined,
-    hours: undefined,
-    detail: 'Designed for on-the-go patrons wanting instant cutting chai, quick wraps, toasted pav bites, and chilled beverages without waiting for a table.',
-    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Tapriwala+Express+130+Venkatasamy+Road+West+RS+Puram+Coimbatore+641002',
+    id: 'peelamedu',
+    name: 'Peelamedu',
+    type: 'Student & Tech Hub',
+    address: '415, Sowripalayam Road, Peelamedu, Coimbatore, Tamil Nadu - 641004 (Opp. PSG Hospitals Back Gate)',
+    phone: '+91 80565 44622',
+    hours: 'Monday - Sunday: 11:00 AM - 10:30 PM',
+    detail: 'Located in Coimbatore’s student and IT corridor near PSG Tech and PSG Hospitals. Buzzing with energy, quick bites, Mumbai grilled sandwiches, thick cold cocoa, and hot cutting chai.',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Tapriwala+Peelamedu+415+Sowripalayam+Road+Coimbatore+641004',
     image: '/images/swiggy_peelamedu.jpg',
-    featuredPill: 'Express Kiosk · Quick Bites',
-    amenities: ['Fast Counter Service', 'Takeaway Packing', 'Pocket Friendly', 'Standing Tables']
+    featuredPill: 'Student Hub · Near PSG Tech',
+    amenities: ['Dine-in Seating', 'Quick Counter Service', 'Pure Vegetarian', 'Swiggy / Zomato Delivery'],
+    callWriteup: 'Heading to our Peelamedu branch or want food packed for college or work? Call our desk directly for quick takeaway prep, chai flasks, or seating queries.'
   }
 ];
 
@@ -775,8 +779,8 @@ export const BRAND_PROMISES = [
   },
   {
     id: 'pocket-friendly',
-    title: 'Pocket-Friendly Prices',
-    description: 'High-quality cafe experience rooted in street hospitality—an easy chai break for two at ₹200–₹400.',
-    badge: 'Honest Value'
+    title: 'Unhurried Hospitality',
+    description: 'High-quality cafe experience rooted in street warmth—generous portions, thoughtful craft, and no rush to leave.',
+    badge: 'Warm & Welcoming'
   }
 ];

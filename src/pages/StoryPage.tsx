@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { BRAND_PROMISES } from '../data/tapriwalaData';
 import { ScrollReveal, StaggerContainer, StaggerItem } from '../components/ScrollReveal';
+import { BotanicalBotanicsIllustration, KettleIllustration } from '../components/TapriIllustrations';
 
 export const StoryPage: React.FC = () => {
   useEffect(() => {
@@ -11,8 +12,18 @@ export const StoryPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="pt-24 pb-20 bg-[#F7F1E7] min-h-screen relative bg-paper-grain">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pt-24 pb-20 bg-cream-grain min-h-screen relative overflow-hidden">
+      {/* Background Art Direction: Isolated, Pointer-Events-None Layer */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
+        <div className="absolute top-16 right-4 text-[#B95032]/[0.04] transform rotate-12 scale-125">
+          <KettleIllustration className="w-72 h-72" />
+        </div>
+        <div className="absolute bottom-20 left-4 text-[#728064]/[0.05] transform -rotate-12 scale-125">
+          <BotanicalBotanicsIllustration className="w-64 h-64" />
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Page Header */}
         <ScrollReveal animation="fade-down" delay={0.1} className="py-12 border-b border-[#E4D6C2] mb-16 text-center max-w-3xl mx-auto">

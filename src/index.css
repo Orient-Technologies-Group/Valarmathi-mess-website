@@ -33,13 +33,25 @@
   }
 }
 
-/* Subtle, lightweight parchment texture without expensive composite filters */
+/* Subtle, static printed paper texture without expensive composite filters */
 .bg-paper-grain {
   background-color: #FAF6EF;
+  background-image: radial-gradient(#302019 0.5px, transparent 0.5px), radial-gradient(#B95032 0.35px, #FAF6EF 0.35px);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+  background-blend-mode: soft-light;
+}
+
+.bg-cream-grain {
+  background-color: #F7F1E7;
+  background-image: radial-gradient(#302019 0.4px, transparent 0.4px);
+  background-size: 20px 20px;
 }
 
 .bg-dark-grain {
   background-color: #261710;
+  background-image: radial-gradient(#F7F1E7 0.35px, transparent 0.35px);
+  background-size: 28px 28px;
 }
 
 /* Steam particle keyframes */

@@ -3,15 +3,25 @@ import { MapPin, Phone, Clock, Navigation, Coffee, CheckCircle2 } from 'lucide-r
 import { motion, AnimatePresence } from 'framer-motion';
 import { OUTLETS } from '../data/tapriwalaData';
 import { ScrollReveal } from './ScrollReveal';
+import { OutletContactModal } from './OutletContactModal';
 
 export const FindYourTapri: React.FC = () => {
   const [selectedOutletId, setSelectedOutletId] = useState<string>(OUTLETS[0].id);
+  const [isContactModalOpen, setIsContactModalOpen] = useState<boolean>(false);
 
   const currentOutlet = OUTLETS.find((o) => o.id === selectedOutletId) || OUTLETS[0];
 
   return (
-    <section id="outlets" className="py-20 lg:py-28 bg-[#F7F1E7] border-b border-[#E4D6C2] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="outlets" className="py-20 lg:py-28 bg-cream-grain border-b border-[#E4D6C2] relative overflow-hidden">
+      {/* Background Art Direction: Isolated, Pointer-Events-None Layer */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
+        <div className="absolute top-10 left-10 hidden sm:flex items-center space-x-2 text-[10px] tracking-[0.25em] uppercase text-[#302019]/[0.15] font-mono">
+          <span>COIMBATORE HUB</span>
+          <span className="w-8 h-[1px] bg-[#E4D6C2]" />
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
@@ -138,45 +148,31 @@ export const FindYourTapri: React.FC = () => {
                               Operating Timings
                             </span>
                             <p className="text-sm text-[#8C7E74] italic">
-                              Quick grab-and-go kiosk — please check counter timings on-site.
+                              Quick service counter - please check timings on-site.
                             </p>
                           </div>
                         </div>
                       )}
 
                       {/* Phone */}
-                      {currentOutlet.phone ? (
-                        <div className="flex items-start space-x-3.5">
-                          <div className="p-2 rounded-lg bg-[#F7F1E7] border border-[#E4D6C2] text-[#D49A3D] shrink-0 mt-0.5">
-                            <Phone className="w-4 h-4" />
-                          </div>
-                          <div>
-                            <span className="text-[11px] uppercase tracking-wider font-bold text-[#8C7E74] block">
-                              Contact Number
-                            </span>
-                            <a
-                              href={`tel:${currentOutlet.phone.replace(/\s+/g, '')}`}
-                              className="text-sm font-semibold text-[#B95032] hover:underline"
-                            >
-                              {currentOutlet.phone}
-                            </a>
-                          </div>
+                      <div className="flex items-start space-x-3.5">
+                        <div className="p-2 rounded-lg bg-[#F7F1E7] border border-[#E4D6C2] text-[#D49A3D] shrink-0 mt-0.5">
+                          <Phone className="w-4 h-4" />
                         </div>
-                      ) : (
-                        <div className="flex items-start space-x-3.5">
-                          <div className="p-2 rounded-lg bg-[#F7F1E7] border border-[#E4D6C2] text-[#8C7E74] shrink-0 mt-0.5">
-                            <Phone className="w-4 h-4" />
-                          </div>
-                          <div>
-                            <span className="text-[11px] uppercase tracking-wider font-bold text-[#8C7E74] block">
-                              Telephone
-                            </span>
-                            <p className="text-sm text-[#8C7E74] italic">
-                              Direct counter service only.
-                            </p>
-                          </div>
+                        <div>
+                          <span className="text-[11px] uppercase tracking-wider font-bold text-[#8C7E74] block">
+                            Contact & Reservations
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => setIsContactModalOpen(true)}
+                            className="text-sm font-semibold text-[#B95032] hover:underline cursor-pointer text-left flex items-center space-x-1.5"
+                          >
+                            <span>{currentOutlet.phone || '+91 80565 44622'}</span>
+                            <span className="text-[10px] text-[#8C7E74] font-normal">(View details)</span>
+                          </button>
                         </div>
-                      )}
+                      </div>
 
                     </div>
                   </div>
@@ -187,21 +183,20 @@ export const FindYourTapri: React.FC = () => {
                       href={currentOutlet.mapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-2 px-6 py-3 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-lg shadow-sm hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-[#302019]"
+                      className="inline-flex items-center space-x-2 px-6 py-3 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-lg shadow-sm hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-[#302019] active:scale-98"
                     >
                       <Navigation className="w-4 h-4" />
                       <span>Get Directions</span>
                     </a>
 
-                    {currentOutlet.phone && (
-                      <a
-                        href={`tel:${currentOutlet.phone.replace(/\s+/g, '')}`}
-                        className="inline-flex items-center space-x-2 px-5 py-3 bg-[#F7F1E7] hover:bg-[#E4D6C2]/40 text-[#302019] border border-[#8C7E74]/40 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-[#B95032]"
-                      >
-                        <Phone className="w-4 h-4 text-[#B95032]" />
-                        <span>Call this outlet</span>
-                      </a>
-                    )}
+                    <button
+                      type="button"
+                      onClick={() => setIsContactModalOpen(true)}
+                      className="inline-flex items-center space-x-2 px-5 py-3 bg-[#F7F1E7] hover:bg-[#E4D6C2]/60 text-[#302019] border border-[#8C7E74]/40 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-[#B95032] cursor-pointer shadow-2xs hover:shadow-xs active:scale-98"
+                    >
+                      <Phone className="w-4 h-4 text-[#B95032]" />
+                      <span>Call this outlet</span>
+                    </button>
                   </div>
                 </div>
 
@@ -226,7 +221,7 @@ export const FindYourTapri: React.FC = () => {
                       {currentOutlet.name}
                     </p>
                     <p className="text-xs text-[#E4D6C2]/80 mt-0.5">
-                      Tapriwala — The Contemporary Tea Cafe
+                      Tapriwala - The Contemporary Tea Cafe
                     </p>
                   </div>
                 </div>
@@ -236,19 +231,26 @@ export const FindYourTapri: React.FC = () => {
           </div>
         </ScrollReveal>
 
-        {/* Cost For Two Callout */}
+        {/* Cafe Hospitality Callout */}
         <ScrollReveal animation="fade-up" delay={0.5}>
           <div className="mt-10 text-center">
-            <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-[#FAF6EF] border border-[#E4D6C2] text-xs sm:text-sm text-[#8C7E74] shadow-2xs">
+            <div className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#FAF6EF] border border-[#E4D6C2] text-xs sm:text-sm text-[#8C7E74] shadow-2xs">
               <Coffee className="w-4 h-4 text-[#B95032]" />
               <span>
-                An easy chai break for two: <strong className="text-[#302019]">approximately ₹200–₹400.</strong>
+                Pull up a chair, roll the dice, and <strong className="text-[#302019]">take your time over every sip.</strong>
               </span>
             </div>
           </div>
         </ScrollReveal>
 
       </div>
+
+      {/* Direct Cafe Helpline Modal */}
+      <OutletContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+        initialOutletId={currentOutlet.id}
+      />
     </section>
   );
 };

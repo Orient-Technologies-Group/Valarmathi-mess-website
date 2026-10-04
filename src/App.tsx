@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import { MobileActionBar } from './components/MobileActionBar';
 import { ScrollProgress } from './components/ScrollProgress';
 import { ScrollToTop } from './components/ScrollToTop';
+import { PageLoader } from './components/PageLoader';
 
 import { HomePage } from './pages/HomePage';
 import { MenuPage } from './pages/MenuPage';
@@ -22,6 +23,9 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#FAF6EF] text-[#302019] flex flex-col pb-16 sm:pb-0 selection:bg-[#B95032] selection:text-[#FAF6EF]">
+      {/* Initial Welcome Loading Screen */}
+      <PageLoader />
+
       {/* Visual Scroll Progress Bar */}
       <ScrollProgress />
 

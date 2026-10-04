@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Leaf, Sparkles, ShieldCheck, HeartHandshake, Coffee } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { BRAND_PROMISES } from '../data/tapriwalaData';
 import { ScrollReveal, StaggerContainer, StaggerItem } from './ScrollReveal';
+import { BotanicalBotanicsIllustration, ChaiSealStamp } from './TapriIllustrations';
 
 export const OurStory: React.FC = () => {
+  const storyRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: storyRef,
+    offset: ['start end', 'end start']
+  });
+
+  // Restrained 25px subtle typography scroll travel
+  const bgTextY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+
   const getIcon = (id: string) => {
     switch (id) {
       case 'pure-veg':
@@ -21,8 +31,34 @@ export const OurStory: React.FC = () => {
   };
 
   return (
-    <section id="story" className="py-20 lg:py-28 bg-[#F7F1E7] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={storyRef} id="story" className="py-20 lg:py-28 bg-cream-grain relative overflow-hidden">
+      {/* Background Art Direction: Isolated, Pointer-Events-None Layer */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
+        {/* Background Typography: BREWED FRESH - readable, centered, and crisp */}
+        <motion.div
+          style={{ y: bgTextY }}
+          className="absolute top-6 left-0 right-0 flex justify-center will-change-transform"
+        >
+          <span className="font-serif font-black text-5xl sm:text-7xl lg:text-8xl xl:text-9xl tracking-[0.22em] text-[#B95032]/[0.08] uppercase select-none text-center">
+            BREWED FRESH
+          </span>
+        </motion.div>
+
+        {/* Botanical mint/cardamom illustration sketched in bottom-left */}
+        <div className="absolute -bottom-8 -left-8 text-[#728064]/[0.07] transform -rotate-12 scale-125 lg:scale-150">
+          <BotanicalBotanicsIllustration className="w-48 h-48 sm:w-64 sm:h-64" />
+        </div>
+
+        {/* Subtle Faint Circular Chai Stamp watermark */}
+        <div className="hidden md:block absolute top-16 right-12 text-[#D49A3D]/[0.06] transform rotate-12">
+          <ChaiSealStamp className="w-36 h-36" />
+        </div>
+
+        {/* Fine editorial vertical rule */}
+        <div className="hidden lg:block absolute right-24 top-20 bottom-20 w-[1px] bg-[#E4D6C2]/30" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Split Editorial Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -124,25 +160,6 @@ export const OurStory: React.FC = () => {
                   </div>
                 </motion.div>
 
-                {/* Secondary Floating Card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.35, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                  whileHover={{ y: -4 }}
-                  className="absolute -bottom-6 -left-6 sm:-bottom-8 sm:-left-8 bg-[#FAF6EF] p-4 sm:p-5 rounded-xl border border-[#E4D6C2] shadow-xl max-w-[240px] hidden sm:block"
-                >
-                  <div className="flex items-center space-x-2 mb-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#728064]" />
-                    <span className="text-[11px] font-bold tracking-wider uppercase text-[#728064]">
-                      Vegetarian Kitchen
-                    </span>
-                  </div>
-                  <p className="text-xs text-[#302019]/80 leading-snug font-medium">
-                    "No meat. No artificial colour. Just clean desi warmth."
-                  </p>
-                </motion.div>
 
                 {/* Decorative Stamp on Top Right */}
                 <motion.div

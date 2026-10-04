@@ -22,35 +22,35 @@ interface SwiggyOutlet {
 const SWIGGY_OUTLETS: SwiggyOutlet[] = [
   {
     id: 'rs-puram',
-    name: 'Tapriwala — R.S. Puram',
+    name: 'Tapriwala - R.S. Puram',
     locationTag: 'Flagship Cafe · D.B. Road Corner',
     address: '551-B Lokamanya St (West), R.S. Puram',
     rating: '4.4 ★ (500+ ratings)',
     deliveryAreas: 'R.S. Puram, Sukrawarpet, Gandhipuram, Town Hall, Race Course',
-    estimatedTime: '20–30 mins',
+    estimatedTime: '20-30 mins',
     swiggyUrl: 'https://www.swiggy.com/restaurants/tapriwala-the-contemporary-tea-cafe-rs-puram-coimbatore-584807',
     highlight: 'Full Cafe Menu · Kulhad Chai · All Street Chaat'
   },
   {
     id: 'saibaba-colony',
-    name: 'Tapriwala — Saibaba Colony',
+    name: 'Tapriwala - Saibaba Colony',
     locationTag: 'Neighborhood Cafe · Alagesan Road',
     address: '32, Alagesan Road, Saibaba Colony',
     rating: '4.3 ★ (350+ ratings)',
     deliveryAreas: 'Saibaba Colony, NSR Road, Koundampalayam, Thudiyalur, Bharathi Park',
-    estimatedTime: '20–30 mins',
-    swiggyUrl: 'https://www.swiggy.com/city/coimbatore/tapriwala-the-contemporary-tea-cafe-saibaba-colony-rest584808',
+    estimatedTime: '20-30 mins',
+    swiggyUrl: 'https://www.swiggy.com/restaurants/tapriwala-the-contemporary-tea-cafe-saibaba-colony-coimbatore-755716',
     highlight: 'Quick Service · Bun Maska · Hot Masala Chai'
   },
   {
     id: 'peelamedu',
-    name: 'Tapriwala — Peelamedu / Express',
+    name: 'Tapriwala - Peelamedu',
     locationTag: 'Campus & IT Hub · Avinashi Road',
-    address: 'Near PSG Tech & Venkatasamy Road West',
+    address: '415, Sowripalayam Road, Near PSG Tech',
     rating: '4.4 ★ (400+ ratings)',
     deliveryAreas: 'Peelamedu, PSG Tech, Hopes College, Nava India, Singanallur, Ramanathapuram',
-    estimatedTime: '15–25 mins',
-    swiggyUrl: 'https://www.swiggy.com/city/coimbatore/tapriwala-the-contemporary-tea-cafe-peelamedu-rest619374',
+    estimatedTime: '15-25 mins',
+    swiggyUrl: 'https://www.swiggy.com/restaurants/tapriwala-the-contemporary-tea-cafe-peelamedu-coimbatore-986528',
     highlight: 'Superfast Delivery · Vada Pav & Cold Cocoa'
   }
 ];
@@ -184,16 +184,16 @@ export const SwiggyOrderModal: React.FC<SwiggyOrderModalProps> = ({ isOpen, onCl
             {/* Footer */}
             <div className="p-4 sm:p-5 bg-[#F7F1E7] border-t border-[#E4D6C2] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left shrink-0">
               <span className="text-xs text-[#8C7E74]">
-                Also searching from another area?
+                Also searching from another area in Coimbatore?
               </span>
 
               <a
-                href="https://www.swiggy.com/city/coimbatore?search=tapriwala"
+                href="https://www.google.com/search?q=Tapriwala+Coimbatore+Swiggy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs font-semibold text-[#FC8019] hover:text-[#e26e10] hover:underline inline-flex items-center space-x-1"
               >
-                <span>Search all Tapriwala locations on Swiggy</span>
+                <span>Find nearest Tapriwala on Swiggy</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
             </div>

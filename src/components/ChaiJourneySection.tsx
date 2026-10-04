@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Sparkles, ArrowRight, Flame, Heart, Users } from 'lucide-react';
 import { ScrollReveal } from './ScrollReveal';
+import { KulhadIllustration, StreetPlateIllustration } from './TapriIllustrations';
 
 interface ChaiJourneySectionProps {
   onExploreMenu: () => void;
@@ -75,15 +76,44 @@ export const ChaiJourneySection: React.FC<ChaiJourneySectionProps> = ({ onExplor
 
   // Smooth background progress line scale
   const lineProgress = useTransform(scrollYProgress, [0.1, 0.9], [0, 1]);
+  // Subtle scroll parallax for the background lettering
+  const bgTextY = useTransform(scrollYProgress, [0, 1], [-30, 30]);
 
   return (
     <section
       ref={containerRef}
       id="journey"
-      className="py-24 lg:py-32 bg-[#FAF6EF] relative overflow-hidden border-b border-[#E4D6C2]"
+      className="py-24 lg:py-32 bg-paper-grain relative overflow-hidden border-b border-[#E4D6C2]"
       aria-label="The Journey of a Chai"
     >
-      {/* Editorial Decorative Background Elements */}
+      {/* Background Art Direction: Isolated, Pointer-Events-None Layer */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
+        {/* Background Typography: EK AUR CHAI? - readable, centered, and crisp */}
+        <motion.div
+          style={{ y: bgTextY }}
+          className="absolute top-12 left-0 right-0 flex justify-center will-change-transform"
+        >
+          <span className="font-serif font-black text-4xl sm:text-6xl lg:text-7xl xl:text-8xl tracking-[0.2em] text-[#302019]/[0.07] uppercase select-none text-center">
+            EK AUR CHAI?
+          </span>
+        </motion.div>
+
+        {/* Large Kulhad Outline floating gently on top-right */}
+        <div className="absolute top-16 -right-12 text-[#B95032]/[0.05] transform rotate-6 scale-150 lg:scale-[2]">
+          <KulhadIllustration className="w-56 h-64" />
+        </div>
+
+        {/* Street Plate / Saucer Sketch on bottom-left */}
+        <div className="absolute bottom-20 -left-10 text-[#8C7E74]/[0.07] transform -rotate-6 scale-125 lg:scale-150">
+          <StreetPlateIllustration className="w-56 h-36" />
+        </div>
+
+        {/* Fine editorial station imprint */}
+        <div className="hidden lg:block absolute left-8 top-1/2 -translate-y-1/2 -rotate-90 text-[10px] tracking-[0.3em] uppercase text-[#302019]/[0.2] font-mono">
+          TAPRIWALA KITCHEN CHRONICLES
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}

@@ -14,8 +14,16 @@ export const SignatureFavourites: React.FC<SignatureFavouritesProps> = ({ onView
   const [selectedDish, setSelectedDish] = useState<MenuItem | null>(null);
 
   return (
-    <section id="signatures" className="py-20 lg:py-28 bg-[#FAF6EF] border-b border-[#E4D6C2] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="signatures" className="py-20 lg:py-28 bg-paper-grain border-b border-[#E4D6C2] relative overflow-hidden">
+      {/* Background Art Direction: Quiet, breathable editorial markings */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
+        <div className="absolute top-12 right-12 hidden lg:flex items-center space-x-2 text-[10px] tracking-[0.24em] uppercase text-[#302019]/[0.15] font-mono">
+          <span>FOUR CULINARY SIGNATURES</span>
+          <span className="w-6 h-[1px] bg-[#E4D6C2]" />
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 border-b border-[#E4D6C2] pb-8">

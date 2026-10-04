@@ -1,12 +1,52 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Gamepad2, Users, Lamp, Sparkles, Coffee } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ScrollReveal, StaggerContainer, StaggerItem } from './ScrollReveal';
+import { KettleIllustration, CanopyStallIllustration } from './TapriIllustrations';
 
 export const TapriExperience: React.FC = () => {
+  const expRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: expRef,
+    offset: ['start end', 'end start']
+  });
+
+  // Subtle 30px parallax on dark typography layer
+  const bgTextY = useTransform(scrollYProgress, [0, 1], [-25, 25]);
+
   return (
-    <section id="experience" className="py-24 lg:py-32 bg-[#261710] text-[#F7F1E7] relative overflow-hidden">
+    <section ref={expRef} id="experience" className="py-24 lg:py-32 bg-dark-grain text-[#F7F1E7] relative overflow-hidden">
       
+      {/* Background Art Direction: Isolated, Pointer-Events-None Layer */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
+        {/* Background Typography: CHAI & CONVERSATIONS - readable, centered, and crisp */}
+        <motion.div
+          style={{ y: bgTextY }}
+          className="absolute top-12 left-0 right-0 flex justify-center will-change-transform"
+        >
+          <span className="font-serif font-black text-4xl sm:text-6xl lg:text-7xl xl:text-8xl tracking-[0.18em] text-[#F7F1E7]/[0.08] uppercase select-none text-center">
+            CHAI & CONVERSATIONS
+          </span>
+        </motion.div>
+
+        {/* Traditional Kettle Outline with Warm Amber Tint */}
+        <div className="absolute -bottom-14 -left-12 text-[#D49A3D]/[0.08] transform rotate-6 scale-150 lg:scale-[2]">
+          <KettleIllustration className="w-64 h-64" />
+        </div>
+
+        {/* Canopy Outline at top right */}
+        <div className="hidden lg:block absolute top-12 right-16 text-[#F7F1E7]/[0.04]">
+          <CanopyStallIllustration className="w-48 h-36" />
+        </div>
+
+        {/* Fine editorial grid markings & imprint */}
+        <div className="absolute bottom-8 right-8 hidden sm:flex items-center space-x-3 text-[10px] tracking-[0.28em] uppercase text-[#F7F1E7]/[0.18] font-mono">
+          <span>COIMBATORE CAFES</span>
+          <span className="w-12 h-[1px] bg-[#E4D6C2]/20" />
+          <span>NO RUSH · NO MINIMUM</span>
+        </div>
+      </div>
+
       {/* Seamless Organic Top Transition Wave from Light Parchment */}
       <div className="absolute top-0 left-0 right-0 overflow-hidden leading-none z-10 pointer-events-none" aria-hidden="true">
         <svg 
@@ -17,7 +57,6 @@ export const TapriExperience: React.FC = () => {
           <path d="M0,0 C300,60 900,60 1200,0 L1200,0 L0,0 Z"></path>
         </svg>
       </div>
-
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -214,10 +253,10 @@ export const TapriExperience: React.FC = () => {
                 <Coffee className="w-5 h-5" />
               </div>
               <h3 className="font-serif text-lg font-bold text-[#F7F1E7] mb-2">
-                Pocket-Friendly
+                Unhurried Hospitality
               </h3>
               <p className="text-xs sm:text-sm text-[#E4D6C2]/75 leading-relaxed">
-                Full comfort, hearty portions, and generous hospitality for two at roughly ₹200–₹400.
+                Generous portions, thoughtful craft, and an open invitation to sit back without any rush to leave.
               </p>
             </motion.div>
           </StaggerItem>

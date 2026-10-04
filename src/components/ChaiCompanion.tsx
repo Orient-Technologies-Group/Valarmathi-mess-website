@@ -31,8 +31,18 @@ export const ChaiCompanion: React.FC<ChaiCompanionProps> = ({ onHighlightMenu })
   };
 
   return (
-    <section id="pairing" className="py-20 lg:py-28 bg-[#FAF6EF] border-y border-[#E4D6C2] relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="pairing" className="py-20 lg:py-28 bg-paper-grain border-y border-[#E4D6C2] relative overflow-hidden">
+      {/* Background Art Direction: Isolated, Pointer-Events-None Layer */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
+        <div className="absolute -top-10 -right-10 text-[#D49A3D]/[0.05] transform rotate-45 scale-125">
+          <svg viewBox="0 0 100 100" className="w-60 h-60" fill="none" stroke="currentColor" strokeWidth="1.2">
+            <circle cx="50" cy="50" r="42" strokeDasharray="3 3" />
+            <circle cx="50" cy="50" r="32" />
+          </svg>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Title */}
         <div className="text-center max-w-2xl mx-auto mb-12">

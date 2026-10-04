@@ -78,8 +78,8 @@ const GALLERY_PHOTOS: GalleryPhoto[] = [
   {
     id: 'g10',
     src: '/images/swiggy_peelamedu.jpg',
-    title: 'Tapriwala Express Kiosk',
-    caption: 'Quick counter grab-and-go service near Peelamedu and Venkatasamy Road.',
+    title: 'Tapriwala Peelamedu Cafe',
+    caption: 'Vibrant student and tech corridor cafe near PSG Tech on Sowripalayam Road.',
     tag: 'Outlets'
   },
   {
@@ -116,8 +116,17 @@ export const ExperiencePage: React.FC = () => {
   };
 
   return (
-    <div className="pt-24 pb-20 bg-dark-grain text-[#F7F1E7] min-h-screen relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pt-24 pb-20 bg-dark-grain text-[#F7F1E7] min-h-screen relative overflow-hidden">
+      {/* Background Art Direction: Isolated, Pointer-Events-None Layer */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
+        <div className="absolute top-10 left-0 right-0 flex justify-center">
+          <span className="font-serif font-black text-4xl sm:text-6xl lg:text-7xl xl:text-8xl tracking-[0.18em] text-[#F7F1E7]/[0.08] uppercase select-none text-center">
+            CHAI & CONVERSATIONS
+          </span>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <ScrollReveal animation="fade-down" delay={0.1} className="py-12 border-b border-[#E4D6C2]/15 mb-16 text-center max-w-3xl mx-auto">

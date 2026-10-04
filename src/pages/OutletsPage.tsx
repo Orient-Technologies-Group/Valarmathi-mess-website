@@ -3,9 +3,11 @@ import { MapPin, Phone, Clock, Navigation, CheckCircle2, HelpCircle } from 'luci
 import { motion, AnimatePresence } from 'framer-motion';
 import { OUTLETS } from '../data/tapriwalaData';
 import { ScrollReveal, StaggerContainer, StaggerItem } from '../components/ScrollReveal';
+import { OutletContactModal } from '../components/OutletContactModal';
 
 export const OutletsPage: React.FC = () => {
   const [selectedOutletId, setSelectedOutletId] = useState<string>(OUTLETS[0].id);
+  const [isContactModalOpen, setIsContactModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -51,7 +53,7 @@ export const OutletsPage: React.FC = () => {
           </h1>
 
           <p className="text-base sm:text-lg text-[#8C7E74] leading-relaxed">
-            Three distinct destinations across the city. From our expansive flagship cafe with board games to our fast grab-and-go kiosk.
+            Three destinations across Coimbatore. From our expansive flagship lounge with board games to our vibrant student and neighborhood cafes.
           </p>
         </ScrollReveal>
 
@@ -153,45 +155,31 @@ export const OutletsPage: React.FC = () => {
                             Operating Timings
                           </span>
                           <p className="text-sm text-[#8C7E74] italic">
-                            Quick grab-and-go kiosk — please check counter timings on-site.
+                            Quick service counter - please check timings on-site.
                           </p>
                         </div>
                       </div>
                     )}
 
                     {/* Phone */}
-                    {currentOutlet.phone ? (
-                      <div className="flex items-start space-x-3.5">
-                        <div className="p-2 rounded-lg bg-[#F7F1E7] border border-[#E4D6C2] text-[#D49A3D] shrink-0 mt-0.5">
-                          <Phone className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <span className="text-[11px] uppercase tracking-wider font-bold text-[#8C7E74] block">
-                            Contact Number
-                          </span>
-                          <a
-                            href={`tel:${currentOutlet.phone.replace(/\s+/g, '')}`}
-                            className="text-sm font-semibold text-[#B95032] hover:underline"
-                          >
-                            {currentOutlet.phone}
-                          </a>
-                        </div>
+                    <div className="flex items-start space-x-3.5">
+                      <div className="p-2 rounded-lg bg-[#F7F1E7] border border-[#E4D6C2] text-[#D49A3D] shrink-0 mt-0.5">
+                        <Phone className="w-4 h-4" />
                       </div>
-                    ) : (
-                      <div className="flex items-start space-x-3.5">
-                        <div className="p-2 rounded-lg bg-[#F7F1E7] border border-[#E4D6C2] text-[#8C7E74] shrink-0 mt-0.5">
-                          <Phone className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <span className="text-[11px] uppercase tracking-wider font-bold text-[#8C7E74] block">
-                            Telephone
-                          </span>
-                          <p className="text-sm text-[#8C7E74] italic">
-                            Direct counter service only.
-                          </p>
-                        </div>
+                      <div>
+                        <span className="text-[11px] uppercase tracking-wider font-bold text-[#8C7E74] block">
+                          Contact & Reservations
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setIsContactModalOpen(true)}
+                          className="text-sm font-semibold text-[#B95032] hover:underline cursor-pointer text-left flex items-center space-x-1.5"
+                        >
+                          <span>{currentOutlet.phone || '+91 80565 44622'}</span>
+                          <span className="text-[10px] text-[#8C7E74] font-normal">(View details)</span>
+                        </button>
                       </div>
-                    )}
+                    </div>
 
                   </div>
                 </div>
@@ -202,21 +190,20 @@ export const OutletsPage: React.FC = () => {
                     href={currentOutlet.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-2 px-6 py-3 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-lg shadow-sm hover:shadow-md transition-all"
+                    className="inline-flex items-center space-x-2 px-6 py-3 bg-[#B95032] hover:bg-[#993B22] text-[#F7F1E7] text-xs uppercase tracking-wider font-semibold rounded-lg shadow-sm hover:shadow-md transition-all active:scale-98"
                   >
                     <Navigation className="w-4 h-4" />
                     <span>Get Directions</span>
                   </a>
 
-                  {currentOutlet.phone && (
-                    <a
-                      href={`tel:${currentOutlet.phone.replace(/\s+/g, '')}`}
-                      className="inline-flex items-center space-x-2 px-5 py-3 bg-[#F7F1E7] hover:bg-[#E4D6C2]/40 text-[#302019] border border-[#8C7E74]/40 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all"
-                    >
-                      <Phone className="w-4 h-4 text-[#B95032]" />
-                      <span>Call Outlet</span>
-                    </a>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => setIsContactModalOpen(true)}
+                    className="inline-flex items-center space-x-2 px-5 py-3 bg-[#F7F1E7] hover:bg-[#E4D6C2]/60 text-[#302019] border border-[#8C7E74]/40 text-xs uppercase tracking-wider font-semibold rounded-lg transition-all cursor-pointer shadow-2xs hover:shadow-xs active:scale-98"
+                  >
+                    <Phone className="w-4 h-4 text-[#B95032]" />
+                    <span>Call Outlet</span>
+                  </button>
                 </div>
               </div>
 
@@ -239,7 +226,7 @@ export const OutletsPage: React.FC = () => {
                     {currentOutlet.name}
                   </h3>
                   <p className="text-xs text-[#E4D6C2]/80 mt-1">
-                    Tapriwala — The Contemporary Tea Cafe
+                    Tapriwala - The Contemporary Tea Cafe
                   </p>
                 </div>
               </div>
@@ -287,6 +274,13 @@ export const OutletsPage: React.FC = () => {
         </div>
 
       </div>
+
+      {/* Direct Cafe Helpline Modal */}
+      <OutletContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+        initialOutletId={currentOutlet.id}
+      />
     </div>
   );
 };

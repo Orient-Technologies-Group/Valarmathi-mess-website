@@ -1,16 +1,45 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'wouter';
 import { MapPin, Heart, ArrowUpRight, Sparkles } from 'lucide-react';
 import { OUTLETS } from '../data/tapriwalaData';
+import { KulhadIllustration, ChaiSealStamp } from './TapriIllustrations';
+import { OutletContactModal } from './OutletContactModal';
 
 export const Footer: React.FC = () => {
+  const footerRef = useRef<HTMLElement>(null);
   const currentYear = new Date().getFullYear();
+  const [contactModalOutletId, setContactModalOutletId] = useState<string | null>(null);
 
   return (
-    <footer className="bg-[#302019] text-[#F7F1E7] relative overflow-hidden">
+    <footer ref={footerRef} className="bg-dark-grain text-[#F7F1E7] relative overflow-hidden">
       
+      {/* Background Art Direction: Isolated, Pointer-Events-None Layer */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
+        {/* Background Typography: YOUR EVERYDAY TAPRI - readable, centered, and crisp */}
+        <div className="absolute top-10 left-0 right-0 flex justify-center">
+          <span className="font-serif font-black text-4xl sm:text-6xl lg:text-7xl xl:text-8xl tracking-[0.18em] text-[#F7F1E7]/[0.08] uppercase select-none text-center">
+            YOUR EVERYDAY TAPRI
+          </span>
+        </div>
+
+        {/* Oversized Kulhad cropped on bottom right */}
+        <div className="absolute -bottom-10 -right-10 text-[#D49A3D]/[0.08] transform rotate-12 scale-150 lg:scale-[2.2]">
+          <KulhadIllustration className="w-64 h-72" />
+        </div>
+
+        {/* Chai Seal Stamp on top left */}
+        <div className="hidden lg:block absolute top-16 left-12 text-[#B95032]/[0.07] transform -rotate-12">
+          <ChaiSealStamp className="w-40 h-40" />
+        </div>
+
+        {/* Fine editorial station coordinates */}
+        <div className="absolute top-8 right-12 hidden md:flex items-center space-x-2 text-[10px] tracking-[0.3em] uppercase text-[#F7F1E7]/[0.18] font-mono">
+          <span>COIMBATORE · 11.0168° N, 76.9558° E</span>
+        </div>
+      </div>
+
       {/* Big Typographic Invitation Banner */}
-      <div className="border-b border-[#E4D6C2]/15 py-20 lg:py-28 relative">
+      <div className="border-b border-[#E4D6C2]/15 py-20 lg:py-28 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           
           <div className="inline-flex items-center space-x-2 text-[#D49A3D] mb-4">
@@ -27,7 +56,7 @@ export const Footer: React.FC = () => {
                 See you over chai.
               </h2>
               <p className="text-base sm:text-lg text-[#E4D6C2]/80 max-w-xl mx-auto lg:mx-0 mb-8 font-normal">
-                Pull up a chair at our R.S. Puram, Saibaba Colony, or Venkatasamy Road outlets. Your fresh kulhad brew is steaming.
+                Pull up a chair at our R.S. Puram, Saibaba Colony, or Peelamedu outlets. Your fresh kulhad brew is steaming.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
@@ -161,11 +190,13 @@ export const Footer: React.FC = () => {
                   <p className="line-clamp-2 text-[#E4D6C2]/70 leading-relaxed mb-1">
                     {outlet.address}
                   </p>
-                  {outlet.phone && (
-                    <a href={`tel:${outlet.phone.replace(/\s+/g, '')}`} className="text-[#D49A3D] font-semibold hover:underline">
-                      {outlet.phone}
-                    </a>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => setContactModalOutletId(outlet.id)}
+                    className="text-[#D49A3D] font-semibold hover:underline cursor-pointer text-left block text-xs"
+                  >
+                    {outlet.phone || '+91 80565 44622'}
+                  </button>
                 </div>
               ))}
             </div>
@@ -176,7 +207,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-[#E4D6C2]/15 flex flex-col sm:flex-row items-center justify-between text-xs text-[#E4D6C2]/50 gap-4">
           <p>
-            © {currentYear} Tapriwala — The Contemporary Tea Cafe. Coimbatore, Tamil Nadu.
+            © {currentYear} Tapriwala - The Contemporary Tea Cafe. Coimbatore, Tamil Nadu.
           </p>
           <p className="flex items-center space-x-1">
             <span>Crafted with</span>
@@ -186,6 +217,13 @@ export const Footer: React.FC = () => {
         </div>
 
       </div>
+
+      {/* Outlet Contact Modal */}
+      <OutletContactModal
+        isOpen={!!contactModalOutletId}
+        onClose={() => setContactModalOutletId(null)}
+        initialOutletId={contactModalOutletId || OUTLETS[0].id}
+      />
     </footer>
   );
 };
